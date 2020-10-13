@@ -30,16 +30,16 @@ void bench_init(int threads)
 {
 	bench_algo = opt_algo = (enum sha_algos) 0; /* first */
 	applog(LOG_BLUE, "Starting benchmark mode with %s", algo_names[opt_algo]);
-	pthread_barrier_init(&miner_barr, NULL, threads);
-	pthread_barrier_init(&algo_barr, NULL, threads);
+	pthread_barrier_init_(&miner_barr, NULL, threads);
+	pthread_barrier_init_(&algo_barr, NULL, threads);
 	// required for usage of first algo.
 	
 }
 
 void bench_free()
 {
-	pthread_barrier_destroy(&miner_barr);
-	pthread_barrier_destroy(&algo_barr);
+	pthread_barrier_destroy_(&miner_barr);
+	pthread_barrier_destroy_(&algo_barr);
 }
 
 // required to switch algos
@@ -104,7 +104,7 @@ bool bench_algo_switch_next(int thr_id)
 
 	// we need to wait completion on all cards before the switch
 	if (opt_n_threads > 1) {
-		pthread_barrier_wait(&miner_barr);
+		pthread_barrier_wait_(&miner_barr);
 	}
 
 	char rate[32] = { 0 };
@@ -126,7 +126,7 @@ bool bench_algo_switch_next(int thr_id)
 
 	// wait the other threads to display logs correctly
 	if (opt_n_threads > 1) {
-		pthread_barrier_wait(&algo_barr);
+		pthread_barrier_wait_(&algo_barr);
 	}
 
 	if (algo == ALGO_AUTO)
