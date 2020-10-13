@@ -30,6 +30,15 @@ AC_CHECK_HEADERS([sys/sysctl.h], [], [],
 #endif
 ])
 
+# ANDROID
+dnl Check for Android system
+AC_MSG_CHECKING([for an Android system])
+AC_PREPROC_IFELSE([AC_LANG_PROGRAM([[#ifndef __ANDROID__
+#error __ANDROID__ not defined
+#endif
+]],[[;]])], [HAVE_ANDROID="yes"; AC_MSG_RESULT([yes])], [AC_MSG_RESULT([no])])
+AM_CONDITIONAL(HAVE_ANDROID, test x$HAVE_ANDROID != x)
+
 AC_CHECK_DECLS([be32dec, le32dec, be32enc, le32enc], [], [],
 [AC_INCLUDES_DEFAULT
 #ifdef HAVE_SYS_ENDIAN_H
