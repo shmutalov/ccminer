@@ -42,7 +42,7 @@ endif
 
 if HAVE_ANDROID
 ccminer_LDFLAGS += -Wl,-rpath=/system/lib64
-ccminer_LDADD += -llog -landroid
+ccminer_LDADD += -llog -landroid -lLLVM
 endif
 
 
