@@ -41,6 +41,7 @@ ccminer_LDADD += -lomp
 endif
 
 if HAVE_ANDROID
+ccminer_LDFLAGS += -Wl,-rpath=/system/lib64
 ccminer_LDADD += -llog -landroid
 endif
 
