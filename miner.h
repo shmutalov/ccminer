@@ -10,7 +10,8 @@ extern "C" {
 #include <stdbool.h>
 #include <inttypes.h>
 #include <sys/time.h>
-#include <pthread.h>
+//#include <pthread.h>
+#include "compat/pthreads/pthread_barrier.hpp"
 #include <jansson.h>
 #include <curl/curl.h>
 
