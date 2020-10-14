@@ -34,9 +34,7 @@ ccminer_LDFLAGS  = $(PTHREAD_FLAGS)
 ccminer_LDADD    = @LIBCURL@ @JANSSON_LIBS@ @PTHREAD_LIBS@ @WS2_LIBS@ @OPENMP_CFLAGS@ @LIBS@ 
 ccminer_CPPFLAGS = @LIBCURL_CPPFLAGS@ @OPENMP_CFLAGS@ $(CPPFLAGS) $(PTHREAD_FLAGS) -flax-vector-conversions -fno-strict-aliasing $(JANSSON_INCLUDES) $(DEF_INCLUDES)
 
-if ARCH_x86_64
-ccminer_CPPFLAGS += -march=native
-else
+if !ARCH_x86_64
 ccminer_CPPFLAGS += -march=armv8-a+crypto 
 endif
 
