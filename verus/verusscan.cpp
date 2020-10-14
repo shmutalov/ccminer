@@ -19,7 +19,6 @@
 #include <miner.h>
 //#include "primitives/block.h"
 
-#include "SSE2NEON.h"
 extern "C" 
 {
 //#include "haraka.h"

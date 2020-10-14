@@ -23,9 +23,10 @@ SOFTWARE.
 
 Optimized Implementations for Haraka256 and Haraka512
 */
-#include "SSE2NEON.h"
+
 #include <stdio.h>
 #include "haraka.h"
+#include "haraka_portable.h"
 //#include <stdint.h>
 
 
