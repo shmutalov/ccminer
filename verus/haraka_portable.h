@@ -4,8 +4,6 @@
 //#include "immintrin.h"
 #include "intrinsics_portable.h"
 
-typedef int32x4_t __m128i;
-
 #define NUMROUNDS 5
 
 #ifdef _WIN32
