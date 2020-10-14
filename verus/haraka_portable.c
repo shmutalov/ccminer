@@ -91,7 +91,7 @@ void aesenc(unsigned char *s, const unsigned char *rk)
  tmp1 =  vld1q_u8(s);
  tmp2 = vld1q_u8(rk);
 
- tmp3 = vaesmcq_u8(vaeseq_u8(tmp1, (uint8x16_t){})) ^ tmp2;
+ tmp3 = vaesmcq_u8(vaeseq_u8(tmp1, (uint8x16_t)0)) ^ tmp2;
   
   ((uint64_t*)&s[0])[0] = (uint64_t)vgetq_lane_u64(tmp3,0);
   ((uint64_t*)&s[0])[1] = (uint64_t)vgetq_lane_u64(tmp3,1);
