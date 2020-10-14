@@ -44,8 +44,6 @@
 #include <intrin.h>
 #else
 
-typedef int32x4_t __m128i;
-
 #endif //WIN32
 
 #define AES2(s0, s1, rci) \
