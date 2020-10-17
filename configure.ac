@@ -52,7 +52,23 @@ case $target in
     have_x86=true
     have_x86_64=true
     ;;
+  aarch64-*-*)
+    have_arm=true
+    have_arm_64=true
+    ;;
+  arm*-*-*)
+    have_arm=true
+    ;;
 esac
+
+
+# ANDROID
+dnl Check for Android system
+AC_MSG_CHECKING([for an Android system])
+AC_PREPROC_IFELSE([AC_LANG_PROGRAM([[#ifndef __ANDROID__
+#error __ANDROID__ not defined
+#endif
+]],[[;]])], [have_android=true; AC_MSG_RESULT([yes])], [AC_MSG_RESULT([no])])
 
 PTHREAD_FLAGS="-pthread"
 WS2_LIBS=""
@@ -83,17 +99,11 @@ AC_CHECK_LIB([crypto],[EVP_DigestFinal_ex], [], [AC_MSG_ERROR([OpenSSL library r
 AM_CONDITIONAL([WANT_JANSSON], [test x$request_jansson = xtrue])
 AM_CONDITIONAL([HAVE_WINDOWS], [test x$have_win32 = xtrue])
 AM_CONDITIONAL([HAVE_OSX], [test x$have_osx = xtrue])
+AM_CONDITIONAL([HAVE_ANDROID], [test x$have_android = xtrue])
 AM_CONDITIONAL([ARCH_x86], [test x$have_x86 = xtrue])
 AM_CONDITIONAL([ARCH_x86_64], [test x$have_x86_64 = xtrue])
-
-# ANDROID
-dnl Check for Android system
-AC_MSG_CHECKING([for an Android system])
-AC_PREPROC_IFELSE([AC_LANG_PROGRAM([[#ifndef __ANDROID__
-#error __ANDROID__ not defined
-#endif
-]],[[;]])], [HAVE_ANDROID="yes"; AC_MSG_RESULT([yes])], [AC_MSG_RESULT([no])])
-AM_CONDITIONAL(HAVE_ANDROID, test x$HAVE_ANDROID != x)
+AM_CONDITIONAL([ARCH_ARM], [test x$have_arm = xtrue])
+AM_CONDITIONAL([ARCH_ARM_64], [test x$have_arm_64 = xtrue])
 
 if test x$request_jansson = xtrue
 then
