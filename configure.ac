@@ -127,12 +127,10 @@ AC_CONFIG_FILES([
 	])
 
 dnl find out what version we are running
-ARCH=`uname -m`
-if [[ $ARCH == "x86_64" ]];
+SUFFIX=""
+if test x$have_x86_64 = xtrue
 then
   SUFFIX="64"
-else
-  SUFFIX=""
 fi
 
 if test x$have_osx = xtrue
