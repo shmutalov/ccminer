@@ -44,7 +44,7 @@ Then we need to install `gcc-6` (or `gcc-7`, `gcc-8`, `gcc-9`, `gcc-10`) package
 
 Clone the `ccminer` git repo (`ARM` branch):
 
-`git clone --single-branch -b ARM https://github.com/monkins1010/ccminer.git`
+`git clone --single-branch -b ARM https://github.com/shmutalov/ccminer.git`
 
 Then change the current directory:
 
