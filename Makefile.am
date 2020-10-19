@@ -49,6 +49,8 @@ ccminer_CPPFLAGS += -march=armv8-a+crypto
 else
 ccminer_CPPFLAGS += -march=armv7-a+simd
 endif
+else ARCH_x86_64
+ccminer_CPPFLAGS += -march=atom -mtune=atom -msse3 -maes -mpclmul
 endif
 
 if HAVE_OSX
