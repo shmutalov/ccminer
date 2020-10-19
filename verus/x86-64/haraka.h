@@ -27,7 +27,7 @@ Optimized Implementations for Haraka256 and Haraka512
 #ifndef HARAKA_H_
 #define HARAKA_H_
 
-#include "immintrin.h"
+#include <immintrin.h>
 
 #define NUMROUNDS 5
 
@@ -133,7 +133,7 @@ Optimized Implementations for Haraka256 and Haraka512
 #ifdef HARAKA_H_
 
 
-#include "immintrin.h"
+#include <immintrin.h>
 
 #define NUMROUNDS 5
 
