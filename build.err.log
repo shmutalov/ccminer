@@ -1,0 +1,552 @@
+./configure: 6565: [: x86_64: unexpected operator
+util.cpp: In function 'bool stratum_benchdata(json_t*, json_t*, int)':
+util.cpp:1693:9: warning: ISO C++ forbids converting a string constant to 'char*' [-Wwrite-strings]
+ 1693 |  card = "CPU";
+      |         ^~~~~
+In file included from /data/data/com.termux/files/usr/lib/gcc/x86_64-linux-android/10.2.0/include/immintrin.h:39,
+                 from verus/haraka.h:30,
+                 from verus/haraka.c:28:
+verus/haraka.c: In function 'haraka256':
+/data/data/com.termux/files/usr/lib/gcc/x86_64-linux-android/10.2.0/include/wmmintrin.h:61:1: error: inlining failed in call to 'always_inline' '_mm_aesenc_si128': target specific option mismatch
+   61 | _mm_aesenc_si128 (__m128i __X, __m128i __Y)
+      | ^~~~~~~~~~~~~~~~
+In file included from verus/haraka.c:28:
+verus/haraka.h:156:8: note: called from here
+  156 |   s1 = _mm_aesenc_si128(s1, rc[rci + 3]);
+      |        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+verus/haraka.c:133:2: note: in expansion of macro 'AES2'
+  133 |  AES2(s[0], s[1], 16);
+      |  ^~~~
+In file included from /data/data/com.termux/files/usr/lib/gcc/x86_64-linux-android/10.2.0/include/immintrin.h:39,
+                 from verus/haraka.h:30,
+                 from verus/haraka.c:28:
+/data/data/com.termux/files/usr/lib/gcc/x86_64-linux-android/10.2.0/include/wmmintrin.h:61:1: error: inlining failed in call to 'always_inline' '_mm_aesenc_si128': target specific option mismatch
+   61 | _mm_aesenc_si128 (__m128i __X, __m128i __Y)
+      | ^~~~~~~~~~~~~~~~
+In file included from verus/haraka.c:28:
+verus/haraka.h:155:8: note: called from here
+  155 |   s0 = _mm_aesenc_si128(s0, rc[rci + 2]); \
+      |        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+verus/haraka.c:133:2: note: in expansion of macro 'AES2'
+  133 |  AES2(s[0], s[1], 16);
+      |  ^~~~
+In file included from /data/data/com.termux/files/usr/lib/gcc/x86_64-linux-android/10.2.0/include/immintrin.h:39,
+                 from verus/haraka.h:30,
+                 from verus/haraka.c:28:
+/data/data/com.termux/files/usr/lib/gcc/x86_64-linux-android/10.2.0/include/wmmintrin.h:61:1: error: inlining failed in call to 'always_inline' '_mm_aesenc_si128': target specific option mismatch
+   61 | _mm_aesenc_si128 (__m128i __X, __m128i __Y)
+      | ^~~~~~~~~~~~~~~~
+In file included from verus/haraka.c:28:
+verus/haraka.h:154:8: note: called from here
+  154 |   s1 = _mm_aesenc_si128(s1, rc[rci + 1]); \
+      |        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+verus/haraka.c:133:2: note: in expansion of macro 'AES2'
+  133 |  AES2(s[0], s[1], 16);
+      |  ^~~~
+In file included from /data/data/com.termux/files/usr/lib/gcc/x86_64-linux-android/10.2.0/include/immintrin.h:39,
+                 from verus/haraka.h:30,
+                 from verus/haraka.c:28:
+/data/data/com.termux/files/usr/lib/gcc/x86_64-linux-android/10.2.0/include/wmmintrin.h:61:1: error: inlining failed in call to 'always_inline' '_mm_aesenc_si128': target specific option mismatch
+   61 | _mm_aesenc_si128 (__m128i __X, __m128i __Y)
+      | ^~~~~~~~~~~~~~~~
+In file included from verus/haraka.c:28:
+verus/haraka.h:153:8: note: called from here
+  153 |   s0 = _mm_aesenc_si128(s0, rc[rci]); \
+      |        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+verus/haraka.c:133:2: note: in expansion of macro 'AES2'
+  133 |  AES2(s[0], s[1], 16);
+      |  ^~~~
+In file included from /data/data/com.termux/files/usr/lib/gcc/x86_64-linux-android/10.2.0/include/immintrin.h:39,
+                 from verus/haraka.h:30,
+                 from verus/haraka.c:28:
+/data/data/com.termux/files/usr/lib/gcc/x86_64-linux-android/10.2.0/include/wmmintrin.h:61:1: error: inlining failed in call to 'always_inline' '_mm_aesenc_si128': target specific option mismatch
+   61 | _mm_aesenc_si128 (__m128i __X, __m128i __Y)
+      | ^~~~~~~~~~~~~~~~
+In file included from verus/haraka.c:28:
+verus/haraka.h:156:8: note: called from here
+  156 |   s1 = _mm_aesenc_si128(s1, rc[rci + 3]);
+      |        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+verus/haraka.c:130:2: note: in expansion of macro 'AES2'
+  130 |  AES2(s[0], s[1], 12);
+      |  ^~~~
+In file included from /data/data/com.termux/files/usr/lib/gcc/x86_64-linux-android/10.2.0/include/immintrin.h:39,
+                 from verus/haraka.h:30,
+                 from verus/haraka.c:28:
+/data/data/com.termux/files/usr/lib/gcc/x86_64-linux-android/10.2.0/include/wmmintrin.h:61:1: error: inlining failed in call to 'always_inline' '_mm_aesenc_si128': target specific option mismatch
+   61 | _mm_aesenc_si128 (__m128i __X, __m128i __Y)
+      | ^~~~~~~~~~~~~~~~
+In file included from verus/haraka.c:28:
+verus/haraka.h:155:8: note: called from here
+  155 |   s0 = _mm_aesenc_si128(s0, rc[rci + 2]); \
+      |        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+verus/haraka.c:130:2: note: in expansion of macro 'AES2'
+  130 |  AES2(s[0], s[1], 12);
+      |  ^~~~
+In file included from /data/data/com.termux/files/usr/lib/gcc/x86_64-linux-android/10.2.0/include/immintrin.h:39,
+                 from verus/haraka.h:30,
+                 from verus/haraka.c:28:
+/data/data/com.termux/files/usr/lib/gcc/x86_64-linux-android/10.2.0/include/wmmintrin.h:61:1: error: inlining failed in call to 'always_inline' '_mm_aesenc_si128': target specific option mismatch
+   61 | _mm_aesenc_si128 (__m128i __X, __m128i __Y)
+      | ^~~~~~~~~~~~~~~~
+In file included from verus/haraka.c:28:
+verus/haraka.h:154:8: note: called from here
+  154 |   s1 = _mm_aesenc_si128(s1, rc[rci + 1]); \
+      |        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+verus/haraka.c:130:2: note: in expansion of macro 'AES2'
+  130 |  AES2(s[0], s[1], 12);
+      |  ^~~~
+In file included from /data/data/com.termux/files/usr/lib/gcc/x86_64-linux-android/10.2.0/include/immintrin.h:39,
+                 from verus/haraka.h:30,
+                 from verus/haraka.c:28:
+/data/data/com.termux/files/usr/lib/gcc/x86_64-linux-android/10.2.0/include/wmmintrin.h:61:1: error: inlining failed in call to 'always_inline' '_mm_aesenc_si128': target specific option mismatch
+   61 | _mm_aesenc_si128 (__m128i __X, __m128i __Y)
+      | ^~~~~~~~~~~~~~~~
+In file included from verus/haraka.c:28:
+verus/haraka.h:153:8: note: called from here
+  153 |   s0 = _mm_aesenc_si128(s0, rc[rci]); \
+      |        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+verus/haraka.c:130:2: note: in expansion of macro 'AES2'
+  130 |  AES2(s[0], s[1], 12);
+      |  ^~~~
+In file included from /data/data/com.termux/files/usr/lib/gcc/x86_64-linux-android/10.2.0/include/immintrin.h:39,
+                 from verus/haraka.h:30,
+                 from verus/haraka.c:28:
+/data/data/com.termux/files/usr/lib/gcc/x86_64-linux-android/10.2.0/include/wmmintrin.h:61:1: error: inlining failed in call to 'always_inline' '_mm_aesenc_si128': target specific option mismatch
+   61 | _mm_aesenc_si128 (__m128i __X, __m128i __Y)
+      | ^~~~~~~~~~~~~~~~
+In file included from verus/haraka.c:28:
+verus/haraka.h:156:8: note: called from here
+  156 |   s1 = _mm_aesenc_si128(s1, rc[rci + 3]);
+      |        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+verus/haraka.c:127:2: note: in expansion of macro 'AES2'
+  127 |  AES2(s[0], s[1], 8);
+      |  ^~~~
+In file included from /data/data/com.termux/files/usr/lib/gcc/x86_64-linux-android/10.2.0/include/immintrin.h:39,
+                 from verus/haraka.h:30,
+                 from verus/haraka.c:28:
+/data/data/com.termux/files/usr/lib/gcc/x86_64-linux-android/10.2.0/include/wmmintrin.h:61:1: error: inlining failed in call to 'always_inline' '_mm_aesenc_si128': target specific option mismatch
+   61 | _mm_aesenc_si128 (__m128i __X, __m128i __Y)
+      | ^~~~~~~~~~~~~~~~
+In file included from verus/haraka.c:28:
+verus/haraka.h:155:8: note: called from here
+  155 |   s0 = _mm_aesenc_si128(s0, rc[rci + 2]); \
+      |        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+verus/haraka.c:127:2: note: in expansion of macro 'AES2'
+  127 |  AES2(s[0], s[1], 8);
+      |  ^~~~
+In file included from /data/data/com.termux/files/usr/lib/gcc/x86_64-linux-android/10.2.0/include/immintrin.h:39,
+                 from verus/haraka.h:30,
+                 from verus/haraka.c:28:
+/data/data/com.termux/files/usr/lib/gcc/x86_64-linux-android/10.2.0/include/wmmintrin.h:61:1: error: inlining failed in call to 'always_inline' '_mm_aesenc_si128': target specific option mismatch
+   61 | _mm_aesenc_si128 (__m128i __X, __m128i __Y)
+      | ^~~~~~~~~~~~~~~~
+In file included from verus/haraka.c:28:
+verus/haraka.h:154:8: note: called from here
+  154 |   s1 = _mm_aesenc_si128(s1, rc[rci + 1]); \
+      |        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+verus/haraka.c:127:2: note: in expansion of macro 'AES2'
+  127 |  AES2(s[0], s[1], 8);
+      |  ^~~~
+In file included from /data/data/com.termux/files/usr/lib/gcc/x86_64-linux-android/10.2.0/include/immintrin.h:39,
+                 from verus/haraka.h:30,
+                 from verus/haraka.c:28:
+/data/data/com.termux/files/usr/lib/gcc/x86_64-linux-android/10.2.0/include/wmmintrin.h:61:1: error: inlining failed in call to 'always_inline' '_mm_aesenc_si128': target specific option mismatch
+   61 | _mm_aesenc_si128 (__m128i __X, __m128i __Y)
+      | ^~~~~~~~~~~~~~~~
+In file included from verus/haraka.c:28:
+verus/haraka.h:153:8: note: called from here
+  153 |   s0 = _mm_aesenc_si128(s0, rc[rci]); \
+      |        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+verus/haraka.c:127:2: note: in expansion of macro 'AES2'
+  127 |  AES2(s[0], s[1], 8);
+      |  ^~~~
+In file included from /data/data/com.termux/files/usr/lib/gcc/x86_64-linux-android/10.2.0/include/immintrin.h:39,
+                 from verus/haraka.h:30,
+                 from verus/haraka.c:28:
+/data/data/com.termux/files/usr/lib/gcc/x86_64-linux-android/10.2.0/include/wmmintrin.h:61:1: error: inlining failed in call to 'always_inline' '_mm_aesenc_si128': target specific option mismatch
+   61 | _mm_aesenc_si128 (__m128i __X, __m128i __Y)
+      | ^~~~~~~~~~~~~~~~
+In file included from verus/haraka.c:28:
+verus/haraka.h:156:8: note: called from here
+  156 |   s1 = _mm_aesenc_si128(s1, rc[rci + 3]);
+      |        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+verus/haraka.c:124:2: note: in expansion of macro 'AES2'
+  124 |  AES2(s[0], s[1], 4);
+      |  ^~~~
+In file included from /data/data/com.termux/files/usr/lib/gcc/x86_64-linux-android/10.2.0/include/immintrin.h:39,
+                 from verus/haraka.h:30,
+                 from verus/haraka.c:28:
+/data/data/com.termux/files/usr/lib/gcc/x86_64-linux-android/10.2.0/include/wmmintrin.h:61:1: error: inlining failed in call to 'always_inline' '_mm_aesenc_si128': target specific option mismatch
+   61 | _mm_aesenc_si128 (__m128i __X, __m128i __Y)
+      | ^~~~~~~~~~~~~~~~
+In file included from verus/haraka.c:28:
+verus/haraka.h:155:8: note: called from here
+  155 |   s0 = _mm_aesenc_si128(s0, rc[rci + 2]); \
+      |        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+verus/haraka.c:124:2: note: in expansion of macro 'AES2'
+  124 |  AES2(s[0], s[1], 4);
+      |  ^~~~
+In file included from /data/data/com.termux/files/usr/lib/gcc/x86_64-linux-android/10.2.0/include/immintrin.h:39,
+                 from verus/haraka.h:30,
+                 from verus/haraka.c:28:
+/data/data/com.termux/files/usr/lib/gcc/x86_64-linux-android/10.2.0/include/wmmintrin.h:61:1: error: inlining failed in call to 'always_inline' '_mm_aesenc_si128': target specific option mismatch
+   61 | _mm_aesenc_si128 (__m128i __X, __m128i __Y)
+      | ^~~~~~~~~~~~~~~~
+In file included from verus/haraka.c:28:
+verus/haraka.h:154:8: note: called from here
+  154 |   s1 = _mm_aesenc_si128(s1, rc[rci + 1]); \
+      |        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+verus/haraka.c:124:2: note: in expansion of macro 'AES2'
+  124 |  AES2(s[0], s[1], 4);
+      |  ^~~~
+In file included from /data/data/com.termux/files/usr/lib/gcc/x86_64-linux-android/10.2.0/include/immintrin.h:39,
+                 from verus/haraka.h:30,
+                 from verus/haraka.c:28:
+/data/data/com.termux/files/usr/lib/gcc/x86_64-linux-android/10.2.0/include/wmmintrin.h:61:1: error: inlining failed in call to 'always_inline' '_mm_aesenc_si128': target specific option mismatch
+   61 | _mm_aesenc_si128 (__m128i __X, __m128i __Y)
+      | ^~~~~~~~~~~~~~~~
+In file included from verus/haraka.c:28:
+verus/haraka.h:153:8: note: called from here
+  153 |   s0 = _mm_aesenc_si128(s0, rc[rci]); \
+      |        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+verus/haraka.c:124:2: note: in expansion of macro 'AES2'
+  124 |  AES2(s[0], s[1], 4);
+      |  ^~~~
+In file included from /data/data/com.termux/files/usr/lib/gcc/x86_64-linux-android/10.2.0/include/immintrin.h:39,
+                 from verus/haraka.h:30,
+                 from verus/haraka.c:28:
+/data/data/com.termux/files/usr/lib/gcc/x86_64-linux-android/10.2.0/include/wmmintrin.h:61:1: error: inlining failed in call to 'always_inline' '_mm_aesenc_si128': target specific option mismatch
+   61 | _mm_aesenc_si128 (__m128i __X, __m128i __Y)
+      | ^~~~~~~~~~~~~~~~
+In file included from verus/haraka.c:28:
+verus/haraka.h:156:8: note: called from here
+  156 |   s1 = _mm_aesenc_si128(s1, rc[rci + 3]);
+      |        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+verus/haraka.c:121:2: note: in expansion of macro 'AES2'
+  121 |  AES2(s[0], s[1], 0);
+      |  ^~~~
+In file included from /data/data/com.termux/files/usr/lib/gcc/x86_64-linux-android/10.2.0/include/immintrin.h:39,
+                 from verus/haraka.h:30,
+                 from verus/haraka.c:28:
+/data/data/com.termux/files/usr/lib/gcc/x86_64-linux-android/10.2.0/include/wmmintrin.h:61:1: error: inlining failed in call to 'always_inline' '_mm_aesenc_si128': target specific option mismatch
+   61 | _mm_aesenc_si128 (__m128i __X, __m128i __Y)
+      | ^~~~~~~~~~~~~~~~
+In file included from verus/haraka.c:28:
+verus/haraka.h:155:8: note: called from here
+  155 |   s0 = _mm_aesenc_si128(s0, rc[rci + 2]); \
+      |        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+verus/haraka.c:121:2: note: in expansion of macro 'AES2'
+  121 |  AES2(s[0], s[1], 0);
+      |  ^~~~
+In file included from /data/data/com.termux/files/usr/lib/gcc/x86_64-linux-android/10.2.0/include/immintrin.h:39,
+                 from verus/haraka.h:30,
+                 from verus/haraka.c:28:
+/data/data/com.termux/files/usr/lib/gcc/x86_64-linux-android/10.2.0/include/wmmintrin.h:61:1: error: inlining failed in call to 'always_inline' '_mm_aesenc_si128': target specific option mismatch
+   61 | _mm_aesenc_si128 (__m128i __X, __m128i __Y)
+      | ^~~~~~~~~~~~~~~~
+In file included from verus/haraka.c:28:
+verus/haraka.h:154:8: note: called from here
+  154 |   s1 = _mm_aesenc_si128(s1, rc[rci + 1]); \
+      |        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+verus/haraka.c:121:2: note: in expansion of macro 'AES2'
+  121 |  AES2(s[0], s[1], 0);
+      |  ^~~~
+In file included from /data/data/com.termux/files/usr/lib/gcc/x86_64-linux-android/10.2.0/include/immintrin.h:39,
+                 from verus/haraka.h:30,
+                 from verus/haraka.c:28:
+/data/data/com.termux/files/usr/lib/gcc/x86_64-linux-android/10.2.0/include/wmmintrin.h:61:1: error: inlining failed in call to 'always_inline' '_mm_aesenc_si128': target specific option mismatch
+   61 | _mm_aesenc_si128 (__m128i __X, __m128i __Y)
+      | ^~~~~~~~~~~~~~~~
+In file included from verus/haraka.c:28:
+verus/haraka.h:153:8: note: called from here
+  153 |   s0 = _mm_aesenc_si128(s0, rc[rci]); \
+      |        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+verus/haraka.c:121:2: note: in expansion of macro 'AES2'
+  121 |  AES2(s[0], s[1], 0);
+      |  ^~~~
+In file included from /data/data/com.termux/files/usr/lib/gcc/x86_64-linux-android/10.2.0/include/immintrin.h:39,
+                 from verus/haraka.h:30,
+                 from verus/haraka.c:28:
+/data/data/com.termux/files/usr/lib/gcc/x86_64-linux-android/10.2.0/include/wmmintrin.h:61:1: error: inlining failed in call to 'always_inline' '_mm_aesenc_si128': target specific option mismatch
+   61 | _mm_aesenc_si128 (__m128i __X, __m128i __Y)
+      | ^~~~~~~~~~~~~~~~
+In file included from verus/haraka.c:28:
+verus/haraka.h:156:8: note: called from here
+  156 |   s1 = _mm_aesenc_si128(s1, rc[rci + 3]);
+      |        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+verus/haraka.c:121:2: note: in expansion of macro 'AES2'
+  121 |  AES2(s[0], s[1], 0);
+      |  ^~~~
+In file included from /data/data/com.termux/files/usr/lib/gcc/x86_64-linux-android/10.2.0/include/immintrin.h:39,
+                 from verus/haraka.h:30,
+                 from verus/haraka.c:28:
+/data/data/com.termux/files/usr/lib/gcc/x86_64-linux-android/10.2.0/include/wmmintrin.h:61:1: error: inlining failed in call to 'always_inline' '_mm_aesenc_si128': target specific option mismatch
+   61 | _mm_aesenc_si128 (__m128i __X, __m128i __Y)
+      | ^~~~~~~~~~~~~~~~
+In file included from verus/haraka.c:28:
+verus/haraka.h:155:8: note: called from here
+  155 |   s0 = _mm_aesenc_si128(s0, rc[rci + 2]); \
+      |        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+verus/haraka.c:121:2: note: in expansion of macro 'AES2'
+  121 |  AES2(s[0], s[1], 0);
+      |  ^~~~
+In file included from /data/data/com.termux/files/usr/lib/gcc/x86_64-linux-android/10.2.0/include/immintrin.h:39,
+                 from verus/haraka.h:30,
+                 from verus/haraka.c:28:
+/data/data/com.termux/files/usr/lib/gcc/x86_64-linux-android/10.2.0/include/wmmintrin.h:61:1: error: inlining failed in call to 'always_inline' '_mm_aesenc_si128': target specific option mismatch
+   61 | _mm_aesenc_si128 (__m128i __X, __m128i __Y)
+      | ^~~~~~~~~~~~~~~~
+In file included from verus/haraka.c:28:
+verus/haraka.h:154:8: note: called from here
+  154 |   s1 = _mm_aesenc_si128(s1, rc[rci + 1]); \
+      |        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+verus/haraka.c:121:2: note: in expansion of macro 'AES2'
+  121 |  AES2(s[0], s[1], 0);
+      |  ^~~~
+In file included from /data/data/com.termux/files/usr/lib/gcc/x86_64-linux-android/10.2.0/include/immintrin.h:39,
+                 from verus/haraka.h:30,
+                 from verus/haraka.c:28:
+/data/data/com.termux/files/usr/lib/gcc/x86_64-linux-android/10.2.0/include/wmmintrin.h:61:1: error: inlining failed in call to 'always_inline' '_mm_aesenc_si128': target specific option mismatch
+   61 | _mm_aesenc_si128 (__m128i __X, __m128i __Y)
+      | ^~~~~~~~~~~~~~~~
+In file included from verus/haraka.c:28:
+verus/haraka.h:153:8: note: called from here
+  153 |   s0 = _mm_aesenc_si128(s0, rc[rci]); \
+      |        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+verus/haraka.c:121:2: note: in expansion of macro 'AES2'
+  121 |  AES2(s[0], s[1], 0);
+      |  ^~~~
+In file included from /data/data/com.termux/files/usr/lib/gcc/x86_64-linux-android/10.2.0/include/immintrin.h:39,
+                 from verus/haraka.h:30,
+                 from verus/haraka.c:28:
+/data/data/com.termux/files/usr/lib/gcc/x86_64-linux-android/10.2.0/include/wmmintrin.h:61:1: error: inlining failed in call to 'always_inline' '_mm_aesenc_si128': target specific option mismatch
+   61 | _mm_aesenc_si128 (__m128i __X, __m128i __Y)
+      | ^~~~~~~~~~~~~~~~
+In file included from verus/haraka.c:28:
+verus/haraka.h:156:8: note: called from here
+  156 |   s1 = _mm_aesenc_si128(s1, rc[rci + 3]);
+      |        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+verus/haraka.c:124:2: note: in expansion of macro 'AES2'
+  124 |  AES2(s[0], s[1], 4);
+      |  ^~~~
+In file included from /data/data/com.termux/files/usr/lib/gcc/x86_64-linux-android/10.2.0/include/immintrin.h:39,
+                 from verus/haraka.h:30,
+                 from verus/haraka.c:28:
+/data/data/com.termux/files/usr/lib/gcc/x86_64-linux-android/10.2.0/include/wmmintrin.h:61:1: error: inlining failed in call to 'always_inline' '_mm_aesenc_si128': target specific option mismatch
+   61 | _mm_aesenc_si128 (__m128i __X, __m128i __Y)
+      | ^~~~~~~~~~~~~~~~
+In file included from verus/haraka.c:28:
+verus/haraka.h:155:8: note: called from here
+  155 |   s0 = _mm_aesenc_si128(s0, rc[rci + 2]); \
+      |        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+verus/haraka.c:124:2: note: in expansion of macro 'AES2'
+  124 |  AES2(s[0], s[1], 4);
+      |  ^~~~
+In file included from /data/data/com.termux/files/usr/lib/gcc/x86_64-linux-android/10.2.0/include/immintrin.h:39,
+                 from verus/haraka.h:30,
+                 from verus/haraka.c:28:
+/data/data/com.termux/files/usr/lib/gcc/x86_64-linux-android/10.2.0/include/wmmintrin.h:61:1: error: inlining failed in call to 'always_inline' '_mm_aesenc_si128': target specific option mismatch
+   61 | _mm_aesenc_si128 (__m128i __X, __m128i __Y)
+      | ^~~~~~~~~~~~~~~~
+In file included from verus/haraka.c:28:
+verus/haraka.h:154:8: note: called from here
+  154 |   s1 = _mm_aesenc_si128(s1, rc[rci + 1]); \
+      |        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+verus/haraka.c:124:2: note: in expansion of macro 'AES2'
+  124 |  AES2(s[0], s[1], 4);
+      |  ^~~~
+In file included from /data/data/com.termux/files/usr/lib/gcc/x86_64-linux-android/10.2.0/include/immintrin.h:39,
+                 from verus/haraka.h:30,
+                 from verus/haraka.c:28:
+/data/data/com.termux/files/usr/lib/gcc/x86_64-linux-android/10.2.0/include/wmmintrin.h:61:1: error: inlining failed in call to 'always_inline' '_mm_aesenc_si128': target specific option mismatch
+   61 | _mm_aesenc_si128 (__m128i __X, __m128i __Y)
+      | ^~~~~~~~~~~~~~~~
+In file included from verus/haraka.c:28:
+verus/haraka.h:153:8: note: called from here
+  153 |   s0 = _mm_aesenc_si128(s0, rc[rci]); \
+      |        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+verus/haraka.c:124:2: note: in expansion of macro 'AES2'
+  124 |  AES2(s[0], s[1], 4);
+      |  ^~~~
+In file included from /data/data/com.termux/files/usr/lib/gcc/x86_64-linux-android/10.2.0/include/immintrin.h:39,
+                 from verus/haraka.h:30,
+                 from verus/haraka.c:28:
+/data/data/com.termux/files/usr/lib/gcc/x86_64-linux-android/10.2.0/include/wmmintrin.h:61:1: error: inlining failed in call to 'always_inline' '_mm_aesenc_si128': target specific option mismatch
+   61 | _mm_aesenc_si128 (__m128i __X, __m128i __Y)
+      | ^~~~~~~~~~~~~~~~
+In file included from verus/haraka.c:28:
+verus/haraka.h:156:8: note: called from here
+  156 |   s1 = _mm_aesenc_si128(s1, rc[rci + 3]);
+      |        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+verus/haraka.c:127:2: note: in expansion of macro 'AES2'
+  127 |  AES2(s[0], s[1], 8);
+      |  ^~~~
+In file included from /data/data/com.termux/files/usr/lib/gcc/x86_64-linux-android/10.2.0/include/immintrin.h:39,
+                 from verus/haraka.h:30,
+                 from verus/haraka.c:28:
+/data/data/com.termux/files/usr/lib/gcc/x86_64-linux-android/10.2.0/include/wmmintrin.h:61:1: error: inlining failed in call to 'always_inline' '_mm_aesenc_si128': target specific option mismatch
+   61 | _mm_aesenc_si128 (__m128i __X, __m128i __Y)
+      | ^~~~~~~~~~~~~~~~
+In file included from verus/haraka.c:28:
+verus/haraka.h:155:8: note: called from here
+  155 |   s0 = _mm_aesenc_si128(s0, rc[rci + 2]); \
+      |        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+verus/haraka.c:127:2: note: in expansion of macro 'AES2'
+  127 |  AES2(s[0], s[1], 8);
+      |  ^~~~
+In file included from /data/data/com.termux/files/usr/lib/gcc/x86_64-linux-android/10.2.0/include/immintrin.h:39,
+                 from verus/haraka.h:30,
+                 from verus/haraka.c:28:
+/data/data/com.termux/files/usr/lib/gcc/x86_64-linux-android/10.2.0/include/wmmintrin.h:61:1: error: inlining failed in call to 'always_inline' '_mm_aesenc_si128': target specific option mismatch
+   61 | _mm_aesenc_si128 (__m128i __X, __m128i __Y)
+      | ^~~~~~~~~~~~~~~~
+In file included from verus/haraka.c:28:
+verus/haraka.h:154:8: note: called from here
+  154 |   s1 = _mm_aesenc_si128(s1, rc[rci + 1]); \
+      |        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+verus/haraka.c:127:2: note: in expansion of macro 'AES2'
+  127 |  AES2(s[0], s[1], 8);
+      |  ^~~~
+In file included from /data/data/com.termux/files/usr/lib/gcc/x86_64-linux-android/10.2.0/include/immintrin.h:39,
+                 from verus/haraka.h:30,
+                 from verus/haraka.c:28:
+/data/data/com.termux/files/usr/lib/gcc/x86_64-linux-android/10.2.0/include/wmmintrin.h:61:1: error: inlining failed in call to 'always_inline' '_mm_aesenc_si128': target specific option mismatch
+   61 | _mm_aesenc_si128 (__m128i __X, __m128i __Y)
+      | ^~~~~~~~~~~~~~~~
+In file included from verus/haraka.c:28:
+verus/haraka.h:153:8: note: called from here
+  153 |   s0 = _mm_aesenc_si128(s0, rc[rci]); \
+      |        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+verus/haraka.c:127:2: note: in expansion of macro 'AES2'
+  127 |  AES2(s[0], s[1], 8);
+      |  ^~~~
+In file included from /data/data/com.termux/files/usr/lib/gcc/x86_64-linux-android/10.2.0/include/immintrin.h:39,
+                 from verus/haraka.h:30,
+                 from verus/haraka.c:28:
+/data/data/com.termux/files/usr/lib/gcc/x86_64-linux-android/10.2.0/include/wmmintrin.h:61:1: error: inlining failed in call to 'always_inline' '_mm_aesenc_si128': target specific option mismatch
+   61 | _mm_aesenc_si128 (__m128i __X, __m128i __Y)
+      | ^~~~~~~~~~~~~~~~
+In file included from verus/haraka.c:28:
+verus/haraka.h:156:8: note: called from here
+  156 |   s1 = _mm_aesenc_si128(s1, rc[rci + 3]);
+      |        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+verus/haraka.c:130:2: note: in expansion of macro 'AES2'
+  130 |  AES2(s[0], s[1], 12);
+      |  ^~~~
+In file included from /data/data/com.termux/files/usr/lib/gcc/x86_64-linux-android/10.2.0/include/immintrin.h:39,
+                 from verus/haraka.h:30,
+                 from verus/haraka.c:28:
+/data/data/com.termux/files/usr/lib/gcc/x86_64-linux-android/10.2.0/include/wmmintrin.h:61:1: error: inlining failed in call to 'always_inline' '_mm_aesenc_si128': target specific option mismatch
+   61 | _mm_aesenc_si128 (__m128i __X, __m128i __Y)
+      | ^~~~~~~~~~~~~~~~
+In file included from verus/haraka.c:28:
+verus/haraka.h:155:8: note: called from here
+  155 |   s0 = _mm_aesenc_si128(s0, rc[rci + 2]); \
+      |        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+verus/haraka.c:130:2: note: in expansion of macro 'AES2'
+  130 |  AES2(s[0], s[1], 12);
+      |  ^~~~
+In file included from /data/data/com.termux/files/usr/lib/gcc/x86_64-linux-android/10.2.0/include/immintrin.h:39,
+                 from verus/haraka.h:30,
+                 from verus/haraka.c:28:
+/data/data/com.termux/files/usr/lib/gcc/x86_64-linux-android/10.2.0/include/wmmintrin.h:61:1: error: inlining failed in call to 'always_inline' '_mm_aesenc_si128': target specific option mismatch
+   61 | _mm_aesenc_si128 (__m128i __X, __m128i __Y)
+      | ^~~~~~~~~~~~~~~~
+In file included from verus/haraka.c:28:
+verus/haraka.h:154:8: note: called from here
+  154 |   s1 = _mm_aesenc_si128(s1, rc[rci + 1]); \
+      |        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+verus/haraka.c:130:2: note: in expansion of macro 'AES2'
+  130 |  AES2(s[0], s[1], 12);
+      |  ^~~~
+In file included from /data/data/com.termux/files/usr/lib/gcc/x86_64-linux-android/10.2.0/include/immintrin.h:39,
+                 from verus/haraka.h:30,
+                 from verus/haraka.c:28:
+/data/data/com.termux/files/usr/lib/gcc/x86_64-linux-android/10.2.0/include/wmmintrin.h:61:1: error: inlining failed in call to 'always_inline' '_mm_aesenc_si128': target specific option mismatch
+   61 | _mm_aesenc_si128 (__m128i __X, __m128i __Y)
+      | ^~~~~~~~~~~~~~~~
+In file included from verus/haraka.c:28:
+verus/haraka.h:153:8: note: called from here
+  153 |   s0 = _mm_aesenc_si128(s0, rc[rci]); \
+      |        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+verus/haraka.c:130:2: note: in expansion of macro 'AES2'
+  130 |  AES2(s[0], s[1], 12);
+      |  ^~~~
+In file included from /data/data/com.termux/files/usr/lib/gcc/x86_64-linux-android/10.2.0/include/immintrin.h:39,
+                 from verus/haraka.h:30,
+                 from verus/haraka.c:28:
+/data/data/com.termux/files/usr/lib/gcc/x86_64-linux-android/10.2.0/include/wmmintrin.h:61:1: error: inlining failed in call to 'always_inline' '_mm_aesenc_si128': target specific option mismatch
+   61 | _mm_aesenc_si128 (__m128i __X, __m128i __Y)
+      | ^~~~~~~~~~~~~~~~
+In file included from verus/haraka.c:28:
+verus/haraka.h:156:8: note: called from here
+  156 |   s1 = _mm_aesenc_si128(s1, rc[rci + 3]);
+      |        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+verus/haraka.c:133:2: note: in expansion of macro 'AES2'
+  133 |  AES2(s[0], s[1], 16);
+      |  ^~~~
+In file included from /data/data/com.termux/files/usr/lib/gcc/x86_64-linux-android/10.2.0/include/immintrin.h:39,
+                 from verus/haraka.h:30,
+                 from verus/haraka.c:28:
+/data/data/com.termux/files/usr/lib/gcc/x86_64-linux-android/10.2.0/include/wmmintrin.h:61:1: error: inlining failed in call to 'always_inline' '_mm_aesenc_si128': target specific option mismatch
+   61 | _mm_aesenc_si128 (__m128i __X, __m128i __Y)
+      | ^~~~~~~~~~~~~~~~
+In file included from verus/haraka.c:28:
+verus/haraka.h:155:8: note: called from here
+  155 |   s0 = _mm_aesenc_si128(s0, rc[rci + 2]); \
+      |        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+verus/haraka.c:133:2: note: in expansion of macro 'AES2'
+  133 |  AES2(s[0], s[1], 16);
+      |  ^~~~
+In file included from /data/data/com.termux/files/usr/lib/gcc/x86_64-linux-android/10.2.0/include/immintrin.h:39,
+                 from verus/haraka.h:30,
+                 from verus/haraka.c:28:
+/data/data/com.termux/files/usr/lib/gcc/x86_64-linux-android/10.2.0/include/wmmintrin.h:61:1: error: inlining failed in call to 'always_inline' '_mm_aesenc_si128': target specific option mismatch
+   61 | _mm_aesenc_si128 (__m128i __X, __m128i __Y)
+      | ^~~~~~~~~~~~~~~~
+In file included from verus/haraka.c:28:
+verus/haraka.h:154:8: note: called from here
+  154 |   s1 = _mm_aesenc_si128(s1, rc[rci + 1]); \
+      |        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+verus/haraka.c:133:2: note: in expansion of macro 'AES2'
+  133 |  AES2(s[0], s[1], 16);
+      |  ^~~~
+In file included from /data/data/com.termux/files/usr/lib/gcc/x86_64-linux-android/10.2.0/include/immintrin.h:39,
+                 from verus/haraka.h:30,
+                 from verus/haraka.c:28:
+/data/data/com.termux/files/usr/lib/gcc/x86_64-linux-android/10.2.0/include/wmmintrin.h:61:1: error: inlining failed in call to 'always_inline' '_mm_aesenc_si128': target specific option mismatch
+   61 | _mm_aesenc_si128 (__m128i __X, __m128i __Y)
+      | ^~~~~~~~~~~~~~~~
+In file included from verus/haraka.c:28:
+verus/haraka.h:153:8: note: called from here
+  153 |   s0 = _mm_aesenc_si128(s0, rc[rci]); \
+      |        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+verus/haraka.c:133:2: note: in expansion of macro 'AES2'
+  133 |  AES2(s[0], s[1], 16);
+      |  ^~~~
+make[2]: *** [Makefile:615: verus/ccminer-haraka.o] Error 1
+make[2]: *** Waiting for unfinished jobs....
+In file included from /data/data/com.termux/files/usr/lib/gcc/x86_64-linux-android/10.2.0/include/immintrin.h:39,
+                 from verus/haraka.h:30,
+                 from verus/verus_clhash.h:51,
+                 from verus/verus_clhash.cpp:21:
+/data/data/com.termux/files/usr/lib/gcc/x86_64-linux-android/10.2.0/include/wmmintrin.h: In function '__m128i lazyLengthHash(uint64_t, uint64_t)':
+/data/data/com.termux/files/usr/lib/gcc/x86_64-linux-android/10.2.0/include/wmmintrin.h:116:1: error: inlining failed in call to 'always_inline' '__m128i _mm_clmulepi64_si128(__m128i, __m128i, int)': target specific option mismatch
+  116 | _mm_clmulepi64_si128 (__m128i __X, __m128i __Y, const int __I)
+      | ^~~~~~~~~~~~~~~~~~~~
+verus/verus_clhash.cpp:39:49: note: called from here
+   39 |     const __m128i clprod1 = _mm_clmulepi64_si128( lengthvector, lengthvector, 0x10);
+      |                             ~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from /data/data/com.termux/files/usr/lib/gcc/x86_64-linux-android/10.2.0/include/immintrin.h:39,
+                 from verus/haraka.h:30,
+                 from verus/verus_clhash.h:51,
+                 from verus/verus_clhash.cpp:21:
+/data/data/com.termux/files/usr/lib/gcc/x86_64-linux-android/10.2.0/include/wmmintrin.h:116:1: error: inlining failed in call to 'always_inline' '__m128i _mm_clmulepi64_si128(__m128i, __m128i, int)': target specific option mismatch
+  116 | _mm_clmulepi64_si128 (__m128i __X, __m128i __Y, const int __I)
+      | ^~~~~~~~~~~~~~~~~~~~
+verus/verus_clhash.cpp:39:49: note: called from here
+   39 |     const __m128i clprod1 = _mm_clmulepi64_si128( lengthvector, lengthvector, 0x10);
+      |                             ~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+make[2]: *** [Makefile:813: verus/ccminer-verus_clhash.o] Error 1
+make[1]: *** [Makefile:833: all-recursive] Error 1
+make: *** [Makefile:426: all] Error 2

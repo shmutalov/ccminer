@@ -1034,8 +1034,9 @@ static void *mcast_thread(void *userdata)
 	struct thr_info *mythr = (struct thr_info *)userdata;
 
 	pthread_detach(pthread_self());
-	pthread_setcanceltype(PTHREAD_CANCEL_ASYNCHRONOUS, NULL);
-
+#ifndef __ANDROID__	
+        pthread_setcanceltype(PTHREAD_CANCEL_ASYNCHRONOUS, NULL);
+#endif
 	mcast();
 
 	//PTH(mythr) = 0L;
