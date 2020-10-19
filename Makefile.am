@@ -31,7 +31,7 @@ ccminer_SOURCES += verus/armv7/verusscan.cpp verus/armv7/haraka_portable.c verus
 endif
 else
 if ARCH_x86_64
-ccminer_SOURCES += verus/x86-64/verusscan.cpp verus/x86-64/haraka.c verus/x86-64/verus_clhash.c
+ccminer_SOURCES += verus/x86-64/verusscan.cpp verus/x86-64/haraka.c verus/x86-64/verus_clhash.cpp
 endif
 endif
 
