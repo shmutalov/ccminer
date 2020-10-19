@@ -21,10 +21,19 @@ ccminer_SOURCES	= elist.h miner.h compat.h \
 			  crc32.c \
 			  ccminer.cpp pools.cpp util.cpp bench.cpp \
 			  api.cpp hashlog.cpp stats.cpp sysinfos.cpp \
-			  equi/equi-stratum.cpp verus/verusscan.cpp  \
-			  verus/haraka_portable.c verus/haraka.c verus/verus_clhash_portable.cpp
+			  equi/equi-stratum.cpp
 
-
+if ARCH_ARM
+if ARCH_ARM_64
+ccminer_SOURCES += verus/aarch64/verusscan.cpp verus/aarch64/haraka_portable.c verus/aarch64/haraka.c verus/aarch64/verus_clhash_portable.cpp
+else
+ccminer_SOURCES += verus/armv7/verusscan.cpp verus/armv7/haraka_portable.c verus/armv7/haraka.c verus/armv7/verus_clhash_portable.cpp
+endif
+else
+if ARCH_x86_64
+ccminer_SOURCES += verus/x86-64/verusscan.cpp verus/x86-64/haraka_portable.c verus/x86-64/haraka.c verus/x86-64/verus_clhash_portable.cpp
+endif
+endif
 
 if HAVE_WINDOWS
 ccminer_SOURCES += compat/winansi.c
