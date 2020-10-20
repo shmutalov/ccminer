@@ -26,12 +26,19 @@ ccminer_SOURCES	= elist.h miner.h compat.h \
 if ARCH_ARM
 if ARCH_ARM_64
 ccminer_SOURCES += verus/aarch64/verusscan.cpp verus/aarch64/haraka_portable.c verus/aarch64/haraka.c verus/aarch64/verus_clhash_portable.cpp
+libs_ARCH = "arm64-v8a"
 else
 ccminer_SOURCES += verus/armv7/verusscan.cpp verus/armv7/haraka_portable.c verus/armv7/haraka.c verus/armv7/verus_clhash_portable.cpp
+libs_ARCH = "armeabi-v7a"
 endif
 else
-if ARCH_x86_64
+if ARCH_x86
 ccminer_SOURCES += verus/x86-64/verusscan.cpp verus/x86-64/haraka.c verus/x86-64/verus_clhash.cpp
+if ARCH_x86_64
+libs_ARCH = "x86-64"
+else
+libs_ARCH = "x86"
+endif
 endif
 endif
 
@@ -39,9 +46,15 @@ if HAVE_WINDOWS
 ccminer_SOURCES += compat/winansi.c
 endif
 
+if BUILD_STATIC
+ccminer_LDFLAGS  = -static $(PTHREAD_FLAGS)
+ccminer_LDADD    = -l$(top_srcdir)/libs/$(libs_ARCH)/curl/lib/libcurl.a -l$(top_srcdir)/libs/$(libs_ARCH)/openssl/lib/libcrypto.a -l$(top_srcdir)/libs/$(libs_ARCH)/openssl/lib/libssl.a -l$(top_srcdir)/libs/$(libs_ARCH)/openssl/lib/libcrypto.a -l$(top_srcdir)/libs/$(libs_ARCH)/nghttp2/lib/libnghttp2.a -l$(top_srcdir)/libs/$(libs_ARCH)/lz4/lib/liblz4.a @JANSSON_LIBS@ @PTHREAD_LIBS@ @WS2_LIBS@ @OPENMP_CFLAGS@ @LIBS@ 
+ccminer_CPPFLAGS = -I$(top_srcdir)/libs/$(libs_ARCH)/curl/include -l$(top_srcdir)/libs/$(libs_ARCH)/openssl/include -l$(top_srcdir)/libs/$(libs_ARCH)/nghttp2/include -l$(top_srcdir)/libs/$(libs_ARCH)/lz4/include @OPENMP_CFLAGS@ $(CPPFLAGS) $(PTHREAD_FLAGS) -flax-vector-conversions -fno-strict-aliasing $(JANSSON_INCLUDES) $(DEF_INCLUDES)
+else
 ccminer_LDFLAGS  = $(PTHREAD_FLAGS)
 ccminer_LDADD    = @LIBCURL@ @JANSSON_LIBS@ @PTHREAD_LIBS@ @WS2_LIBS@ @OPENMP_CFLAGS@ @LIBS@ 
 ccminer_CPPFLAGS = @LIBCURL_CPPFLAGS@ @OPENMP_CFLAGS@ $(CPPFLAGS) $(PTHREAD_FLAGS) -flax-vector-conversions -fno-strict-aliasing $(JANSSON_INCLUDES) $(DEF_INCLUDES)
+endif
 
 if ARCH_ARM
 if ARCH_ARM_64
@@ -64,5 +77,3 @@ endif
 if HAVE_ANDROID
 ccminer_LDADD += -llog
 endif
-
-
