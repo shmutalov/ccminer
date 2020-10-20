@@ -104,6 +104,7 @@ AM_CONDITIONAL([ARCH_x86], [test x$have_x86 = xtrue])
 AM_CONDITIONAL([ARCH_x86_64], [test x$have_x86_64 = xtrue])
 AM_CONDITIONAL([ARCH_ARM], [test x$have_arm = xtrue])
 AM_CONDITIONAL([ARCH_ARM_64], [test x$have_arm_64 = xtrue])
+AM_CONDITIONAL([BUILD_STATIC], [test x$BUILD_STATIC = xtrue])
 
 if test x$request_jansson = xtrue
 then

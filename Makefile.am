@@ -26,18 +26,18 @@ ccminer_SOURCES	= elist.h miner.h compat.h \
 if ARCH_ARM
 if ARCH_ARM_64
 ccminer_SOURCES += verus/aarch64/verusscan.cpp verus/aarch64/haraka_portable.c verus/aarch64/haraka.c verus/aarch64/verus_clhash_portable.cpp
-libs_ARCH = "arm64-v8a"
+libs_ARCH = arm64-v8a
 else
 ccminer_SOURCES += verus/armv7/verusscan.cpp verus/armv7/haraka_portable.c verus/armv7/haraka.c verus/armv7/verus_clhash_portable.cpp
-libs_ARCH = "armeabi-v7a"
+libs_ARCH = armeabi-v7a
 endif
 else
 if ARCH_x86
 ccminer_SOURCES += verus/x86-64/verusscan.cpp verus/x86-64/haraka.c verus/x86-64/verus_clhash.cpp
 if ARCH_x86_64
-libs_ARCH = "x86-64"
+libs_ARCH = x86-64
 else
-libs_ARCH = "x86"
+libs_ARCH = x86
 endif
 endif
 endif
