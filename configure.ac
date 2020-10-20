@@ -92,12 +92,6 @@ AC_CHECK_LIB([pthread], [pthread_create], PTHREAD_LIBS="-lpthread",
       AC_CHECK_LIB([pthreadGC], [pthread_create], PTHREAD_LIBS="-lpthreadGC"
 ))))
 
-AM_COND_IF([test x$BUILD_STATIC = xtrue], [],
-  [AC_CHECK_LIB([z],[gzopen], [], []),
-  AC_CHECK_LIB([ssl],[SSL_free], [], [AC_MSG_ERROR([OpenSSL library required])]),
-  AC_CHECK_LIB([crypto],[EVP_DigestFinal_ex], [], [AC_MSG_ERROR([OpenSSL library required])]),
-  LIBCURL_CHECK_CONFIG(, 7.15.2, ,[AC_MSG_ERROR([Missing required libcurl >= 7.15.2])])])
-
 AM_CONDITIONAL([WANT_JANSSON], [test x$request_jansson = xtrue])
 AM_CONDITIONAL([HAVE_WINDOWS], [test x$have_win32 = xtrue])
 AM_CONDITIONAL([HAVE_OSX], [test x$have_osx = xtrue])
@@ -107,6 +101,12 @@ AM_CONDITIONAL([ARCH_x86_64], [test x$have_x86_64 = xtrue])
 AM_CONDITIONAL([ARCH_ARM], [test x$have_arm = xtrue])
 AM_CONDITIONAL([ARCH_ARM_64], [test x$have_arm_64 = xtrue])
 AM_CONDITIONAL([BUILD_STATIC], [test x$BUILD_STATIC = xtrue])
+
+AM_COND_IF([BUILD_STATIC], [AC_MSG_NOTICE([Build is static. No need to check zlib, ssl, crypto, curl binaries])],
+  [AC_CHECK_LIB([z],[gzopen], [], []),
+  AC_CHECK_LIB([ssl],[SSL_free], [], [AC_MSG_ERROR([OpenSSL library required])]),
+  AC_CHECK_LIB([crypto],[EVP_DigestFinal_ex], [], [AC_MSG_ERROR([OpenSSL library required])]),
+  LIBCURL_CHECK_CONFIG(, 7.15.2, ,[AC_MSG_ERROR([Missing required libcurl >= 7.15.2])])])
 
 if test x$request_jansson = xtrue
 then
