@@ -11,8 +11,7 @@ This document explains the second way.
 + rooted Letv Le 1s, Android 6, Mediatek MT6795T
 + unrooted Coolpad Cool1, Android 6, Snapdragon 652
 + unrooted Huawei Honor 9 Lite, Android 9, HiSilicon Kirin 659
-
-**Currently x86_64 Android platform is not supported. Work in progress.**
++ unrooted Google Android x86-64 emulator, Android 10
 
 # Step 1 - Install the Termux
 
