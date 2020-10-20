@@ -48,13 +48,16 @@ endif
 
 if BUILD_STATIC
 ccminer_LDFLAGS  = -static $(PTHREAD_FLAGS)
-ccminer_LDADD    = -l$(top_srcdir)/libs/$(libs_ARCH)/curl/lib/libcurl.a -l$(top_srcdir)/libs/$(libs_ARCH)/openssl/lib/libcrypto.a -l$(top_srcdir)/libs/$(libs_ARCH)/openssl/lib/libssl.a -l$(top_srcdir)/libs/$(libs_ARCH)/openssl/lib/libcrypto.a -l$(top_srcdir)/libs/$(libs_ARCH)/nghttp2/lib/libnghttp2.a -l$(top_srcdir)/libs/$(libs_ARCH)/lz4/lib/liblz4.a @JANSSON_LIBS@ @PTHREAD_LIBS@ @WS2_LIBS@ @OPENMP_CFLAGS@ @LIBS@ 
-ccminer_CPPFLAGS = -I$(top_srcdir)/libs/$(libs_ARCH)/curl/include -l$(top_srcdir)/libs/$(libs_ARCH)/openssl/include -l$(top_srcdir)/libs/$(libs_ARCH)/nghttp2/include -l$(top_srcdir)/libs/$(libs_ARCH)/lz4/include @OPENMP_CFLAGS@ $(CPPFLAGS) $(PTHREAD_FLAGS) -flax-vector-conversions -fno-strict-aliasing $(JANSSON_INCLUDES) $(DEF_INCLUDES)
+ccminer_LDADD    = libs/$(libs_ARCH)/curl/lib/libcurl.a libs/$(libs_ARCH)/openssl/lib/libcrypto.a libs/$(libs_ARCH)/openssl/lib/libssl.a libs/$(libs_ARCH)/openssl/lib/libcrypto.a libs/$(libs_ARCH)/nghttp2/lib/libnghttp2.a libs/$(libs_ARCH)/lz4/lib/liblz4.a 
+ccminer_CPPFLAGS = -I$(top_srcdir)/libs/$(libs_ARCH)/curl/include -I$(top_srcdir)/libs/$(libs_ARCH)/openssl/include -I$(top_srcdir)/libs/$(libs_ARCH)/nghttp2/include -I$(top_srcdir)/libs/$(libs_ARCH)/lz4/include 
 else
 ccminer_LDFLAGS  = $(PTHREAD_FLAGS)
-ccminer_LDADD    = @LIBCURL@ @JANSSON_LIBS@ @PTHREAD_LIBS@ @WS2_LIBS@ @OPENMP_CFLAGS@ @LIBS@ 
-ccminer_CPPFLAGS = @LIBCURL_CPPFLAGS@ @OPENMP_CFLAGS@ $(CPPFLAGS) $(PTHREAD_FLAGS) -flax-vector-conversions -fno-strict-aliasing $(JANSSON_INCLUDES) $(DEF_INCLUDES)
+ccminer_LDADD    = @LIBCURL@ 
+ccminer_CPPFLAGS = @LIBCURL_CPPFLAGS@ 
 endif
+
+ccminer_LDADD    += @JANSSON_LIBS@ @PTHREAD_LIBS@ @WS2_LIBS@ @OPENMP_CFLAGS@ @LIBS@
+ccminer_CPPFLAGS += @OPENMP_CFLAGS@ $(CPPFLAGS) $(PTHREAD_FLAGS) -flax-vector-conversions -fno-strict-aliasing $(JANSSON_INCLUDES) $(DEF_INCLUDES)
 
 if ARCH_ARM
 if ARCH_ARM_64
