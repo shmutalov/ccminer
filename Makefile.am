@@ -47,7 +47,7 @@ ccminer_SOURCES += compat/winansi.c
 endif
 
 if BUILD_STATIC
-ccminer_LDFLAGS  = -static-libstdc++ $(PTHREAD_FLAGS)
+ccminer_LDFLAGS  = -static -static-libstdc++ $(PTHREAD_FLAGS)
 ccminer_LDADD    = libs/$(libs_ARCH)/curl/lib/libcurl.a libs/$(libs_ARCH)/openssl/lib/libcrypto.a libs/$(libs_ARCH)/openssl/lib/libssl.a libs/$(libs_ARCH)/openssl/lib/libcrypto.a libs/$(libs_ARCH)/nghttp2/lib/libnghttp2.a libs/$(libs_ARCH)/lz4/lib/liblz4.a 
 ccminer_CPPFLAGS = -I$(top_srcdir)/libs/$(libs_ARCH)/curl/include -I$(top_srcdir)/libs/$(libs_ARCH)/openssl/include -I$(top_srcdir)/libs/$(libs_ARCH)/nghttp2/include -I$(top_srcdir)/libs/$(libs_ARCH)/lz4/include 
 else
