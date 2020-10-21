@@ -2,6 +2,8 @@
 ccminer
 *.o
 
+output
+
 autom4te.cache
 .deps
 
