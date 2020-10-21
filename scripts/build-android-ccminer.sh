@@ -87,7 +87,6 @@ function configure_make() {
 
     elif [[ "${ARCH}" == "arm64" ]]; then
 
-        # --enable-shared need nghttp2 cpp compile
         ./configure --host=$(android_get_build_host "${ARCH}") CXXFLAGS="-O3 $extracflags" BUILD_STATIC=true --prefix="${PREFIX_DIR}" >"${OUTPUT_ROOT}/log/${ABI}.log" 2>&1
 
     else
