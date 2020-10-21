@@ -1,7 +1,9 @@
 
 ccminer
 *.o
-
+*.lo
+*.la
+*.lai
 output
 
 autom4te.cache
@@ -24,6 +26,7 @@ config.status
 config.status.lineno
 config.guess
 config.sub
+libtool
 
 mingw32-config.cache
 
