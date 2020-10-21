@@ -80,6 +80,10 @@ Then change the current directory:
 
 `cd ccminer`
 
+Run the `libtoolize`:
+
+`libtoolize`
+
 Then start the build:
 
 `./build.sh`
