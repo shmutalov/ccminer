@@ -3686,11 +3686,11 @@ int main(int argc, char *argv[])
 //	printf("                            ....                           ....                  .....\n");
 //	printf("*********************************************************************************************************\n");
 
-	printf("\n      *** ccminer CPU" PACKAGE_VERSION " for Verushash v2.1 - 2.2  by Monkins1010 based on ccminer***\n\n");
+	printf("\n      *** ccminer CPU" PACKAGE_VERSION " for Verushash v2.1 - 2.2  by shmutalov based on Monkins1010 fork based on ccminer***\n\n");
 
 		//printf("    Built with VC++ %d" , msver());
 		printf("Originally based on Christian Buchner and Christian H. project\n");
-
+    printf("Android builds modified by shmutalov\n");
 		printf("Located at: " PACKAGE_URL " \n\n");
 
 	rpc_user = strdup("");

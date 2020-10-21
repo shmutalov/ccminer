@@ -1,4 +1,4 @@
-AC_INIT([ccminer_CPU], [3.7], [], [ccminer], [http://github.com/monkins1010/ccminer])
+AC_INIT([ccminer_CPU], [3.7], [], [ccminer], [http://github.com/shmutalov/ccminer])
 
 AC_PREREQ([2.59c])
 AC_CANONICAL_SYSTEM
