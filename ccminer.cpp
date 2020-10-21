@@ -1939,12 +1939,11 @@ wait_lp_url:
 	switchn = pool_switch_count;
 
 	/* full URL */
-	else if (strstr(hdr_path, "://")) {
+	if (strstr(hdr_path, "://")) {
 		lp_url = hdr_path;
 		hdr_path = NULL;
-	}
-	/* absolute path, on current server */
-	else {
+	}	else {
+    /* absolute path, on current server */
 		char *copy_start = (*hdr_path == '/') ? (hdr_path + 1) : hdr_path;
 		if (rpc_url[strlen(rpc_url) - 1] != '/')
 			need_slash = true;
