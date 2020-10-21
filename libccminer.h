@@ -1,6 +1,8 @@
 #ifndef _LIBCCMINER_H_
 #define _LIBCCMINER_H_
 
+#include <stdarg.h>
+
 #ifdef __cplusplus
 extern "C"{
 #endif //__cplusplus
