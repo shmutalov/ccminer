@@ -3,6 +3,7 @@ AC_INIT([ccminer_CPU], [3.7], [], [ccminer], [http://github.com/monkins1010/ccmi
 AC_PREREQ([2.59c])
 AC_CANONICAL_SYSTEM
 AC_CONFIG_SRCDIR([ccminer.cpp])
+AC_CONFIG_MACRO_DIRS([m4])
 AM_INIT_AUTOMAKE([foreign subdir-objects])
 AC_CONFIG_HEADERS([ccminer-config.h])
 
@@ -17,6 +18,8 @@ AM_PROG_AS
 AC_PROG_RANLIB
 AC_PROG_CXX
 AC_OPENMP
+
+LT_INIT
 
 dnl Checks for header files
 AC_HEADER_STDC
