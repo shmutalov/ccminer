@@ -68,37 +68,10 @@ bool bench_algo_switch_next(int thr_id)
 
 	algo++;
 
-	// skip some duplicated algos
-	if (algo == ALGO_C11) algo++; // same as x11
-	if (algo == ALGO_DMD_GR) algo++; // same as groestl
-	if (algo == ALGO_HEAVY) algo++; // dead
-	if (algo == ALGO_MJOLLNIR) algo++; // same as heavy
-	if (algo == ALGO_KECCAKC) algo++; // same as keccak
-	if (algo == ALGO_WHIRLCOIN) algo++; // same as whirlpool
-	if (algo == ALGO_WHIRLPOOLX) algo++; // disabled
-	// todo: algo switch from RPC 2.0
-	if (algo == ALGO_CRYPTOLIGHT) algo++;
-	if (algo == ALGO_CRYPTONIGHT) algo++;
-	if (algo == ALGO_WILDKECCAK) algo++;
-	if (algo == ALGO_QUARK) algo++; // to fix
-	if (algo == ALGO_LBRY ) algo++;
-
-	if (device_sm[dev_id] && device_sm[dev_id] < 300) {
-		// incompatible SM 2.1 kernels...
-		if (algo == ALGO_GROESTL) algo++;
-		if (algo == ALGO_MYR_GR) algo++;
-		if (algo == ALGO_NEOSCRYPT) algo++;
-		if (algo == ALGO_WHIRLPOOLX) algo++;
-	}
-	// and unwanted ones...
-	if (algo == ALGO_SCRYPT) algo++;
-	if (algo == ALGO_SCRYPT_JANE) algo++;
-
 	// free current algo memory and track mem usage
 	mused = 10;
 	algo_free_all(thr_id);
 	
-
 	// device can take some time to free
 	mfree = 10;
 	if (device_mem_free[thr_id] > mfree) {

@@ -231,14 +231,7 @@ static char *getpoolnfo(char *params)
 	if (stratum.job.xnonce2) {
 		/* used temporary to be sure all is ok */
 		sprintf(extra, "0x");
-		if (p->algo == ALGO_DECRED) {
-			char compat[32] = { 0 };
-			cbin2hex(&extra[2], (const char*) stratum.xnonce1, min(36, stratum.xnonce2_size));
-			cbin2hex(compat, (const char*) stratum.job.xnonce2, 4);
-			memcpy(&extra[2], compat, 8); // compat extranonce
-		} else {
-			cbin2hex(&extra[2], (const char*) stratum.job.xnonce2, stratum.xnonce2_size);
-		}
+    cbin2hex(&extra[2], (const char*) stratum.job.xnonce2, stratum.xnonce2_size);
 	}
 
 	snprintf(s, MYBUFSIZ, "POOL=%s;ALGO=%s;URL=%s;USER=%s;SOLV=%d;ACC=%d;REJ=%d;STALE=%u;H=%u;JOB=%s;DIFF=%.6f;"

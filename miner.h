@@ -435,7 +435,6 @@ extern int api_thr_id;
 extern volatile bool abort_flag;
 extern struct work_restart *work_restart;
 extern bool opt_trust_pool;
-extern uint16_t opt_vote;
 
 extern uint64_t global_hashrate;
 extern uint64_t net_hashrate;
