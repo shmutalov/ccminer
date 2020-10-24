@@ -79,6 +79,7 @@ struct workio_cmd {
 	int pooln;
 };
 
+bool opt_print_banner = true;
 bool opt_debug = false;
 bool opt_debug_diff = false;
 bool opt_debug_threads = false;
@@ -265,6 +266,7 @@ Options:\n\
       --submit-stale    ignore stale jobs checks, may create more rejected shares\n\
   -n, --ndevs           list cuda devices\n\
   -N, --statsavg        number of samples used to compute hashrate (default: 30)\n\
+      --no-banner       do not print ASCI-art banner\n\
       --no-gbt          disable getblocktemplate support (height check in solo)\n\
       --no-longpoll     disable X-Long-Polling support\n\
       --no-stratum      disable X-Stratum support\n\
@@ -342,6 +344,7 @@ struct option options[] = {
 	{ "help", 0, NULL, 'h' },
 	{ "intensity", 1, NULL, 'i' },
 	{ "ndevs", 0, NULL, 'n' },
+  { "no-banner", 0, NULL, 1200 },
 	{ "no-color", 0, NULL, 1002 },
 	{ "no-extranonce", 0, NULL, 1012 },
 	{ "no-gbt", 0, NULL, 1011 },
@@ -2864,7 +2867,9 @@ void parse_arg(int key, char *arg)
 	case 1199:
 		pool_set_attr(cur_pooln, "disabled", arg);
 		break;
-
+  case 1200:
+    opt_print_banner = false;
+    break;
 	case 'V':
 		show_version_and_exit();
 	case 'h':
@@ -3026,30 +3031,32 @@ int main(int argc, char *argv[])
 	// get opt_quiet early
 	parse_single_opt('q', argc, argv);
 
-	printf("      ..              ..\n");
-	printf("   .lkK0o.          'd0Kkc.  \n");
-	printf("  cKWMMMW0;       'dXMMMMWK:     \n");
-	printf(" :XMMMMMMMXc.    lKMMMMMMMMK;                                                          .\n");
-	printf(" lWMMMMMMMMNl., OWMMMMMMMMMNkoxkO0OOko:.   'odddddl,;okOOdodddddc.     ,oddddo'  ., ldkO00Okxo : .\n");
-	printf("  ,0MMMMMMMMMNxdXMMMMMMMMMMNNWMMMMMMMMMWK: .xWMMMMMWXWMMMNKNMMMMWd.   .kMMMMM0,'oKWMMMMMMMMMMWKc\n");
-	printf("   ;KMMMMMMMMMMMMMMMMMMMMWWWMMMN0kOXMMMMMK; :XMMMMMMMMMMMWKKWMMMMK,   cNMMMMWdlKMMMMXxlcdXMMMMM0'\n");
-	printf("    :KMMMMMMMMMMMMMMMMMWWWWMMNd'.  :XMMMMNdkWMMMMWN0oc:::dXMMMMWd.   .kMMMMM0o0MMMMWx.   :xxxxxl.   \n");
-	printf("     :KMMMMMMMMMMMMMMMWWWMMMMKdllllxNMMMMN0XMMMMWx,     ..xMMMMMK,   cNMMMMWo; 0MMMMMNKkdl:, .\n");
-	printf("      :KMMMMMMMMMMMMNXNWMMMMMMMMMMMMMMMMMXXWMMMMK,      :XMMMMWo    .kMMMMM0' ;ONWMMMMMMMMN0o.   \n");
-	printf("       ;KMMMMMMMMMW0coNMMMMMKkxxxxxxxxxxxONMMMMWo      .xMMMMM0,    cNMMMMWl    ':oxOKWMMMMMWk.     \n");
-	printf("        ;0MMMMMMMNd.lWMMMMMO,     .'cc. .kWMMMM0,      ;KMMMMMk.   ;0MMMMMXkddddd;   .cKMMMMMk.  \n");
-	printf("         ,0WMMMWO;, 0MMMMMWXkxdx0NWWx' :XMMMMWo        :NMMMMMNOxxONMMMMMNkOMMMMMKo::ckNMMMMK;   \n");
-	printf("          'OWMXl.     ,OWMMMMMMMMMMMWKo:kWMMMMK,       ,0MMMMMMMMWWWMMMMM0,'kWMMMMMMMMMMMWKd' \n");
-	printf("           .dd'        .;oxOKXXK0kdl,. 'x0000Oc         .oOKXXKOxc:x0000O:  .; okOKXXK0Oxl, .\n");
+  if (opt_print_banner) {
+    printf("      ..              ..\n");
+    printf("   .lkK0o.          'd0Kkc.  \n");
+    printf("  cKWMMMW0;       'dXMMMMWK:     \n");
+    printf(" :XMMMMMMMXc.    lKMMMMMMMMK;                                                          .\n");
+    printf(" lWMMMMMMMMNl., OWMMMMMMMMMNkoxkO0OOko:.   'odddddl,;okOOdodddddc.     ,oddddo'  ., ldkO00Okxo : .\n");
+    printf("  ,0MMMMMMMMMNxdXMMMMMMMMMMNNWMMMMMMMMMWK: .xWMMMMMWXWMMMNKNMMMMWd.   .kMMMMM0,'oKWMMMMMMMMMMWKc\n");
+    printf("   ;KMMMMMMMMMMMMMMMMMMMMWWWMMMN0kOXMMMMMK; :XMMMMMMMMMMMWKKWMMMMK,   cNMMMMWdlKMMMMXxlcdXMMMMM0'\n");
+    printf("    :KMMMMMMMMMMMMMMMMMWWWWMMNd'.  :XMMMMNdkWMMMMWN0oc:::dXMMMMWd.   .kMMMMM0o0MMMMWx.   :xxxxxl.   \n");
+    printf("     :KMMMMMMMMMMMMMMMWWWMMMMKdllllxNMMMMN0XMMMMWx,     ..xMMMMMK,   cNMMMMWo; 0MMMMMNKkdl:, .\n");
+    printf("      :KMMMMMMMMMMMMNXNWMMMMMMMMMMMMMMMMMXXWMMMMK,      :XMMMMWo    .kMMMMM0' ;ONWMMMMMMMMN0o.   \n");
+    printf("       ;KMMMMMMMMMW0coNMMMMMKkxxxxxxxxxxxONMMMMWo      .xMMMMM0,    cNMMMMWl    ':oxOKWMMMMMWk.     \n");
+    printf("        ;0MMMMMMMNd.lWMMMMMO,     .'cc. .kWMMMM0,      ;KMMMMMk.   ;0MMMMMXkddddd;   .cKMMMMMk.  \n");
+    printf("         ,0WMMMWO;, 0MMMMMWXkxdx0NWWx' :XMMMMWo        :NMMMMMNOxxONMMMMMNkOMMMMMKo::ckNMMMMK;   \n");
+    printf("          'OWMXl.     ,OWMMMMMMMMMMMWKo:kWMMMMK,       ,0MMMMMMMMWWWMMMMM0,'kWMMMMMMMMMMMWKd' \n");
+    printf("           .dd'        .;oxOKXXK0kdl,. 'x0000Oc         .oOKXXKOxc:x0000O:  .; okOKXXK0Oxl, .\n");
 //	printf("                            ....                           ....                  .....\n");
 //	printf("*********************************************************************************************************\n");
+  }
 
 	printf("\n      *** ccminer CPU" PACKAGE_VERSION " for Verushash v2.1 - 2.2  by shmutalov based on Monkins1010 fork based on ccminer***\n\n");
 
-		//printf("    Built with VC++ %d" , msver());
-		printf("Originally based on Christian Buchner and Christian H. project\n");
-    printf("Android builds modified by shmutalov\n");
-		printf("Located at: " PACKAGE_URL " \n\n");
+	//printf("    Built with VC++ %d" , msver());
+  printf("Originally based on Christian Buchner and Christian H. project\n");
+  printf("Android builds modified by shmutalov\n");
+  printf("Located at: " PACKAGE_URL " \n\n");
 
 	rpc_user = strdup("");
 	rpc_pass = strdup("");

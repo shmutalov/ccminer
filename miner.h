@@ -406,6 +406,7 @@ struct option {
 #endif
 extern int options_count();
 
+extern bool opt_print_banner;
 extern bool opt_benchmark;
 extern bool opt_debug;
 extern bool opt_quiet;
