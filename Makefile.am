@@ -31,7 +31,7 @@ if ARCH_ARM_64
 SHARED_SOURCES += verus/aarch64/verusscan.cpp verus/aarch64/haraka_portable.c verus/aarch64/haraka.c verus/aarch64/verus_clhash_portable.cpp
 libs_ARCH = arm64-v8a
 else
-SHARED_SOURCES += verus/armv7/verusscan.cpp verus/armv7/haraka_portable.c verus/armv7/haraka.c verus/armv7/verus_clhash_portable.cpp
+SHARED_SOURCES += verus/armv7/verusscan.cpp verus/armv7/haraka_portable.c verus/armv7/verus_clhash_portable.cpp
 libs_ARCH = armeabi-v7a
 endif
 else
@@ -65,9 +65,9 @@ SHARED_CPPFLAGS += @OPENMP_CFLAGS@ $(CPPFLAGS) $(PTHREAD_FLAGS) -flax-vector-con
 
 if ARCH_ARM
 if ARCH_ARM_64
-SHARED_CPPFLAGS += -march=armv8-a+crypto
+SHARED_CPPFLAGS += -march=armv8-a+crypto -mfloat-abi=hard
 else
-SHARED_CPPFLAGS += -march=armv7-a+simd
+SHARED_CPPFLAGS += -march=armv7-a -mfpu=neon -mfloat-abi=softfp
 endif
 else
 if ARCH_x86

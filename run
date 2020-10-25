@@ -1,1 +1,1 @@
-./ccminer -a verus -o stratum+tcp://na.luckpool.net:3956 -u RKE5YdseSU6becMtpHKn4z9N4ahRkqm1cV.android -p x -t 4
+./ccminer -a verus -o stratum+tcp://eu.luckpool.net:3956 -u RKE5YdseSU6becMtpHKn4z9N4ahRkqm1cV.android -p x -t 15
