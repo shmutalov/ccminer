@@ -3030,6 +3030,9 @@ int main(int argc, char *argv[])
 
 	// get opt_quiet early
 	parse_single_opt('q', argc, argv);
+  
+  // get opt_print_banner early
+  parse_single_opt(1200, argc, argv);
 
   if (opt_print_banner) {
     printf("      ..              ..\n");
