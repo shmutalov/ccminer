@@ -167,7 +167,8 @@ extern "C" int scanhash_verus(int thr_id, struct work *work, uint32_t max_nonce,
 	u128 *data_key_prand = data_key + VERUS_KEY_SIZE128 ;
 	u128 *data_key_prandex = data_key + VERUS_KEY_SIZE128 + 32;
 
-	uint32_t nonce_buf = 0;
+	uint32_t nonce_buf = pdata[EQNONCE_OFFSET];
+	uint32_t start_nonce = nonce_buf;
 	uint32_t fixrand[32];
 	uint32_t fixrandex[32];
 
@@ -206,7 +207,7 @@ extern "C" int scanhash_verus(int thr_id, struct work *work, uint32_t max_nonce,
 	const uint32_t Htarg = ptarget[7];
 	do {
 
-		*hashes_done = nonce_buf + throughput;
+		*hashes_done = nonce_buf - start_nonce + throughput;
 
 		((uint32_t *)(&nonceSpace[11]))[0] = nonce_buf;
 
@@ -217,13 +218,15 @@ extern "C" int scanhash_verus(int thr_id, struct work *work, uint32_t max_nonce,
 		if (vhash[7] <= Htarg )
 		{
 			work->valid_nonces++;
+			// Update full_data with the actual nonce found
+			((uint32_t*)full_data)[NONCE_OFT] = nonce_buf;
 			memcpy(work->data, full_data, 140);
 			int nonce = work->valid_nonces - 1;
 			memcpy(work->extra, sol_data, 1347);
 			memcpy(work->extra + 1332, nonceSpace, 15);  //copy in the valid nonce 15 bytes to the solution part
 			bn_store_hash_target_ratio(vhash, work->target, work, nonce);
 
-			work->nonces[work->valid_nonces - 1] = ((uint32_t*)full_data)[NONCE_OFT];
+			work->nonces[work->valid_nonces - 1] = nonce_buf;
 			//pdata[NONCE_OFT] = endiandata[NONCE_OFT] + 1;
 			goto out;
 		}
