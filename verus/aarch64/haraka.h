@@ -36,12 +36,12 @@ typedef unsigned long long u64;
 #else
 typedef unsigned long u64;
 #endif
-typedef __m128i u128;
+// u128 typedef is in the .c file to avoid conflicts
 
 //extern u128 rc[40];
 
-#define LOAD(src) _mm_load_si128((u128 *)(src))
-#define STORE(dest,src) _mm_storeu_si128((u128 *)(dest),src)
+#define LOAD(src) _mm_load_si128((__m128i *)(src))
+#define STORE(dest,src) _mm_storeu_si128((__m128i *)(dest),src)
 
 #define AES2(s0, s1, rci) \
   s0 = _mm_aesenc_si128(s0, rc[rci]); \
@@ -142,12 +142,12 @@ typedef unsigned long long u64;
 #else
 typedef unsigned long u64;
 #endif
-typedef __m128i u128;
+// u128 typedef is in the .c file to avoid conflicts
 
 extern __m128i rc[40];
 
-#define LOAD(src) _mm_load_si128((u128 *)(src))
-#define STORE(dest,src) _mm_storeu_si128((u128 *)(dest),src)
+#define LOAD(src) _mm_load_si128((__m128i *)(src))
+#define STORE(dest,src) _mm_storeu_si128((__m128i *)(dest),src)
 
 #define AES2(s0, s1, rci) \
   s0 = _mm_aesenc_si128(s0, rc[rci]); \
@@ -232,13 +232,13 @@ void test_implementations();
 void load_constants();
 
 void haraka256(unsigned char *out, const unsigned char *in);
-void haraka256_keyed(unsigned char *out, const unsigned char *in, const u128 *rc);
+void haraka256_keyed(unsigned char *out, const unsigned char *in, const __m128i *rc);
 void haraka256_4x(unsigned char *out, const unsigned char *in);
 void haraka256_8x(unsigned char *out, const unsigned char *in);
 
 void haraka512(unsigned char *out, const unsigned char *in);
 void haraka512_zero(unsigned char *out, const unsigned char *in);
-void haraka512_keyed(unsigned char *out, const unsigned char *in, const u128 *rc);
+void haraka512_keyed(unsigned char *out, const unsigned char *in, const __m128i *rc);
 void haraka512_4x(unsigned char *out, const unsigned char *in);
 void haraka512_8x(unsigned char *out, const unsigned char *in);
 
@@ -251,13 +251,13 @@ void test_implementations();
 void load_constants();
 
 void haraka256(unsigned char *out, const unsigned char *in);
-void haraka256_keyed(unsigned char *out, const unsigned char *in, const u128 *rc);
+void haraka256_keyed(unsigned char *out, const unsigned char *in, const __m128i *rc);
 void haraka256_4x(unsigned char *out, const unsigned char *in);
 void haraka256_8x(unsigned char *out, const unsigned char *in);
 
 void haraka512(unsigned char *out, const unsigned char *in);
 void haraka512_zero(unsigned char *out, const unsigned char *in);
-void haraka512_keyed(unsigned char *out, const unsigned char *in, const u128 *rc);
+void haraka512_keyed(unsigned char *out, const unsigned char *in, const __m128i *rc);
 void haraka512_4x(unsigned char *out, const unsigned char *in);
 void haraka512_8x(unsigned char *out, const unsigned char *in);
 

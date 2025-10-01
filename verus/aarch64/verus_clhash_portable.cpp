@@ -48,9 +48,13 @@
 
 #include "SSE2NEON.h"
 //#include "softaesnc.h"
-typedef int32x4_t __m128i;
+// SSE2NEON.h already defines: typedef int32x4_t __m128i;
 
 #endif //WIN32
+
+#ifndef u128
+typedef __m128i u128;
+#endif
 
 #define AES2(s0, s1, rci) \
   s0 = _mm_aesenc_si128(s0, rc[rci]); \
@@ -302,10 +306,10 @@ uint8x16_t _mm_aesenc_si128 (uint8x16_t a, uint8x16_t RoundKey)
 
 
 // verus intermediate hash extra
-__m128i __verusclmulwithoutreduction64alignedrepeat_port2_1(__m128i *randomsource, const __m128i buf[4], uint64_t keyMask, uint32_t * __restrict fixrand, uint32_t * __restrict fixrandex)
+__m128i __verusclmulwithoutreduction64alignedrepeat_port2_1(__m128i *randomsource, const __m128i buf[4], uint64_t keyMask, uint32_t * __restrict fixrand, uint32_t * __restrict fixrandex, u128 *g_prand, u128 *g_prandex)
 {
 	__m128i const *pbuf;
-   const __m128i pbuf_copy[4] = {_mm_xor_si128(buf[0],buf[2]), _mm_xor_si128(buf[1],buf[3]), buf[2], buf[3]}; 
+   const __m128i pbuf_copy[4] = {_mm_xor_si128(buf[0],buf[2]), _mm_xor_si128(buf[1],buf[3]), buf[2], buf[3]};
 	/*
 	std::cout << "Random key start: ";
 	std::cout << LEToHex(*randomsource) << ", ";
@@ -328,15 +332,19 @@ __m128i __verusclmulwithoutreduction64alignedrepeat_port2_1(__m128i *randomsourc
 		const uint64_t selector = _mm_cvtsi128_si64_emu(acc);
 
 		// get two random locations in the key, which will be mutated and swapped
-		__m128i *prand = randomsource + ((selector >> 5) & keyMask);
-		__m128i *prandex = randomsource + ((selector >> 32) & keyMask);
-
-	
+		uint32_t prand_idx = (selector >> 5) & keyMask;
+		uint32_t prandex_idx = (selector >>32) & keyMask;
+		__m128i *prand = randomsource + prand_idx;
+		__m128i *prandex = randomsource + prandex_idx;
 
 		// select random start and order of pbuf processing
 		pbuf = pbuf_copy + (selector & 3);
-	uint32_t prand_idx = (selector >> 5) & keyMask;
-	uint32_t prandex_idx = (selector >>32) & keyMask;
+
+		// Store original values before mutation (v2.1)
+		_mm_store_si128_emu(&g_prand[i], prand[0]);
+		_mm_store_si128_emu(&g_prandex[i], prandex[0]);
+		fixrand[i] = prand_idx;
+		fixrandex[i] = prandex_idx;
   
 
 
@@ -633,16 +641,13 @@ __m128i __verusclmulwithoutreduction64alignedrepeat_port2_1(__m128i *randomsourc
 			break;
 		}
 		}
-   fixrand[i] = prand_idx;
-		fixrandex[i] = prandex_idx;
-   
 	}
 	return acc;
 }
-__m128i __verusclmulwithoutreduction64alignedrepeat_port2_2(__m128i *randomsource, const __m128i buf[4], uint64_t keyMask, uint32_t * __restrict fixrand, uint32_t * __restrict fixrandex)
+__m128i __verusclmulwithoutreduction64alignedrepeat_port2_2(__m128i *randomsource, const __m128i buf[4], uint64_t keyMask, uint32_t * __restrict fixrand, uint32_t * __restrict fixrandex, u128 *g_prand, u128 *g_prandex)
 {
 	__m128i const *pbuf;
-   const __m128i pbuf_copy[4] = {_mm_xor_si128(buf[0],buf[2]), _mm_xor_si128(buf[1],buf[3]), buf[2], buf[3]}; 
+   const __m128i pbuf_copy[4] = {_mm_xor_si128(buf[0],buf[2]), _mm_xor_si128(buf[1],buf[3]), buf[2], buf[3]};
 	/*
 	std::cout << "Random key start: ";
 	std::cout << LEToHex(*randomsource) << ", ";
@@ -665,15 +670,19 @@ __m128i __verusclmulwithoutreduction64alignedrepeat_port2_2(__m128i *randomsourc
 		const uint64_t selector = _mm_cvtsi128_si64_emu(acc);
 
 		// get two random locations in the key, which will be mutated and swapped
-		__m128i *prand = randomsource + ((selector >> 5) & keyMask);
-		__m128i *prandex = randomsource + ((selector >> 32) & keyMask);
-
-	
+		uint32_t prand_idx = (selector >> 5) & keyMask;
+		uint32_t prandex_idx = (selector >>32) & keyMask;
+		__m128i *prand = randomsource + prand_idx;
+		__m128i *prandex = randomsource + prandex_idx;
 
 		// select random start and order of pbuf processing
 		pbuf = pbuf_copy + (selector & 3);
-	uint32_t prand_idx = (selector >> 5) & keyMask;
-	uint32_t prandex_idx = (selector >>32) & keyMask;
+
+		// Store original values before mutation (v2.2)
+		_mm_store_si128_emu(&g_prand[i], prand[0]);
+		_mm_store_si128_emu(&g_prandex[i], prandex[0]);
+		fixrand[i] = prand_idx;
+		fixrandex[i] = prandex_idx;
   
 
 
@@ -974,29 +983,37 @@ __m128i __verusclmulwithoutreduction64alignedrepeat_port2_2(__m128i *randomsourc
 			break;
 		}
 		}
-   fixrand[i] = prand_idx;
-		fixrandex[i] = prandex_idx;
-   
 	}
 	return acc;
 }
-// hashes 64 bytes only by doing a carryless multiplication and reduction of the repeated 64 byte sequence 16 times, 
+// hashes 64 bytes only by doing a carryless multiplication and reduction of the repeated 64 byte sequence 16 times,
 // returning a 64 bit hash value
-uint64_t verusclhash_port2_1(void * random, const unsigned char buf[64], uint64_t keyMask, uint32_t *  __restrict fixrand, uint32_t * __restrict fixrandex) {
+
+extern "C" {
+
+uint64_t verusclhashv2_1(void * random, const unsigned char buf[64], uint64_t keyMask, uint32_t *  __restrict fixrand, uint32_t * __restrict fixrandex, __m128i *g_prand, __m128i *g_prandex) {
     const unsigned int  m = 128;// we process the data in chunks of 16 cache lines
     __m128i * rs64 = (__m128i *)random;
     const __m128i * string = (const __m128i *) buf;
 
-    __m128i  acc = __verusclmulwithoutreduction64alignedrepeat_port2_1(rs64, string, keyMask, fixrand, fixrandex);
+    __m128i  acc = __verusclmulwithoutreduction64alignedrepeat_port2_1(rs64, string, keyMask, fixrand, fixrandex, g_prand, g_prandex);
     acc = _mm_xor_si128_emu(acc, lazyLengthHash_port(1024, 64));
     return precompReduction64_port(acc);
 }
-uint64_t verusclhash_port2_2(void * random, const unsigned char buf[64], uint64_t keyMask, uint32_t *  __restrict fixrand, uint32_t * __restrict fixrandex) {
+uint64_t verusclhashv2_2(void * random, const unsigned char buf[64], uint64_t keyMask, uint32_t *  __restrict fixrand, uint32_t * __restrict fixrandex, __m128i *g_prand, __m128i *g_prandex) {
     const unsigned int  m = 128;// we process the data in chunks of 16 cache lines
     __m128i * rs64 = (__m128i *)random;
     const __m128i * string = (const __m128i *) buf;
 
-    __m128i  acc = __verusclmulwithoutreduction64alignedrepeat_port2_2(rs64, string, keyMask, fixrand, fixrandex);
+    __m128i  acc = __verusclmulwithoutreduction64alignedrepeat_port2_2(rs64, string, keyMask, fixrand, fixrandex, g_prand, g_prandex);
     acc = _mm_xor_si128_emu(acc, lazyLengthHash_port(1024, 64));
     return precompReduction64_port(acc);
 }
+
+// Compatibility wrapper - uses v2.2
+uint64_t verusclhash_port(void * random, const unsigned char buf[64], uint64_t keyMask, uint32_t *__restrict fixrand, uint32_t *__restrict fixrandex,
+	__m128i *g_prand, __m128i *g_prandex) {
+    return verusclhashv2_2(random, buf, keyMask, fixrand, fixrandex, g_prand, g_prandex);
+}
+
+} // extern "C"

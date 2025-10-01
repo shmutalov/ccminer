@@ -28,6 +28,9 @@ Optimized Implementations for Haraka256 and Haraka512
 #include "haraka.h"
 //#include <stdint.h>
 
+// Define u128 type for internal use
+typedef __m128i u128;
+
 
 uint8x16_t _mm_aesenc_si128 (uint8x16_t a, uint8x16_t RoundKey)
 {
