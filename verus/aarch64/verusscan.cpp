@@ -184,18 +184,11 @@ extern "C" int scanhash_verus(int thr_id, struct work *work, uint32_t max_nonce,
 
 	memcpy(full_data, pdata, 140);
 	memcpy(sol_data, block_41970, 3);
-
-	// Initialize solution with version 7 if not set
-	if (work->extra[0] == 0) {
-		work->extra[0] = 0x07;  // VerusCoin solution version 7
-		work->extra[5] = 0x01;  // Enable merged mining nonce handling
-	}
-
-	memcpy(sol_data + 3, work->extra, 1344);
-	uint8_t version = work->extra[0];
+	memcpy(sol_data + 3, work->solution, 1344);
+	uint8_t version = work->solution[0];
 	uint8_t nonceSpace[15] = {0};  //pool nonce (32bit) + round(32bit) + thrd id (byte) + padding(2bytes) + counting nonce(32bit)
 
-    if (version >= 7 && work->extra[5] > 0) {
+    if (version >= 7 && work->solution[5] > 0) {
 
         // clear non-canonical data from header/solution before hashing; required for merged mining
 		memset(full_data + 4, 0, 96);                        // hashPrevBlock, hashMerkleRoot, hashFinalSaplingRoot
@@ -234,9 +227,8 @@ extern "C" int scanhash_verus(int thr_id, struct work *work, uint32_t max_nonce,
 			((uint32_t*)full_data)[NONCE_OFT] = nonce_buf;
 			memcpy(work->data, full_data, 140);
 			int nonce = work->valid_nonces - 1;
-			// Copy complete solution including 3-byte marker
 			memcpy(work->extra, sol_data, 1347);
-			memcpy(work->extra + 3 + 1332, nonceSpace, 15);  //copy in the valid nonce 15 bytes to the solution part (offset by 3 for marker)
+			memcpy(work->extra + 1332, nonceSpace, 15);  //copy in the valid nonce 15 bytes to the solution part
 			bn_store_hash_target_ratio(vhash, work->target, work, nonce);
 
 			work->nonces[work->valid_nonces - 1] = ((uint32_t*)full_data)[NONCE_OFT];
