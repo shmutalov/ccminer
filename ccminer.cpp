@@ -1324,6 +1324,7 @@ static bool stratum_gen_work(struct stratum_ctx *sctx, struct work *work)
   work->data[25] = le32dec(sctx->job.ntime);
   work->hash_ver = sctx->job.hash_ver;
   work->data[26] = le32dec(sctx->job.nbits);
+  memcpy(&work->solution, sctx->job.solution, 1344); // solution template from pool
   memcpy(&work->data[27], sctx->xnonce1, sctx->xnonce1_size & 0x1F); // pool extranonce
   work->data[35] = 0x80;
 
@@ -1334,7 +1335,8 @@ static bool stratum_gen_work(struct stratum_ctx *sctx, struct work *work)
 
 	if (opt_difficulty == 0.)
 		opt_difficulty = 1.;
-  
+
+  memcpy(work->target, sctx->job.extra, 32);
   equi_work_set_target(work, sctx->job.diff / opt_difficulty);
 
 	if (stratum_diff != sctx->job.diff) {

@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  ccminer:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ccminer:latest
+    container_name: ccminer
+    command: >
+      -a verus
+      -o stratum+tcp://stratum-eu.paddypool.net:9998
+      -u RKE5YdseSU6becMtpHKn4z9N4ahRkqm1cV.docker-test
+      -p x
+      -t 4
+    restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"

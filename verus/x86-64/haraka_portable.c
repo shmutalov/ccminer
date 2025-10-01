@@ -153,7 +153,7 @@ static void haraka_S_absorb(unsigned char *s,
 {
     unsigned long long i;
 
-    unsigned char t[32];
+    unsigned char t[2];
 
 
 
