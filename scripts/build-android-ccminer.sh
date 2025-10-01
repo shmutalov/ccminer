@@ -133,6 +133,46 @@ function configure_make() {
     make clean >>"${OUTPUT_ROOT}/log/${ABI}.log"
     if make -j$(get_cpu_count) >>"${OUTPUT_ROOT}/log/${ABI}.log" 2>&1; then
         make install >>"${OUTPUT_ROOT}/log/${ABI}.log" 2>&1
+
+        # Copy required shared libraries to output directory
+        log_info "Copying shared libraries for $ABI..."
+        TOOLCHAIN=$(get_toolchain)
+
+        # Copy libc++_shared.so
+        LIBC_SO_SOURCE="${ANDROID_NDK_ROOT}/toolchains/llvm/prebuilt/${TOOLCHAIN}/sysroot/usr/lib/${ABI_TRIPLE}/libc++_shared.so"
+        LIBC_SO_DEST="${PREFIX_DIR}/bin/libc++_shared.so"
+        if [ -f "${LIBC_SO_SOURCE}" ]; then
+            cp "${LIBC_SO_SOURCE}" "${LIBC_SO_DEST}"
+            log_info "Copied libc++_shared.so to ${LIBC_SO_DEST}"
+        else
+            log_warning "libc++_shared.so not found at ${LIBC_SO_SOURCE}"
+        fi
+
+        # Copy libomp.so (architecture-specific)
+        LIBOMP_ARCH=""
+        case ${ARCH} in
+            arm64)
+                LIBOMP_ARCH="aarch64"
+                ;;
+            arm)
+                LIBOMP_ARCH="arm"
+                ;;
+            x86_64)
+                LIBOMP_ARCH="x86_64"
+                ;;
+            x86)
+                LIBOMP_ARCH="i386"
+                ;;
+        esac
+
+        LIBOMP_SO_SOURCE="${ANDROID_NDK_ROOT}/toolchains/llvm/prebuilt/${TOOLCHAIN}/lib/clang/17/lib/linux/${LIBOMP_ARCH}/libomp.so"
+        LIBOMP_SO_DEST="${PREFIX_DIR}/bin/libomp.so"
+        if [ -f "${LIBOMP_SO_SOURCE}" ]; then
+            cp "${LIBOMP_SO_SOURCE}" "${LIBOMP_SO_DEST}"
+            log_info "Copied libomp.so to ${LIBOMP_SO_DEST}"
+        else
+            log_warning "libomp.so not found at ${LIBOMP_SO_SOURCE}"
+        fi
     fi
 
     popd
