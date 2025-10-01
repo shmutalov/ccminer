@@ -145,13 +145,16 @@ function set_android_toolchain() {
   local build_host=$(get_build_host_internal "$arch")
   local clang_target_host=$(get_clang_target_host "$arch" "$api")
 
-  export AR=${build_host}-ar
+  # Modern NDK uses llvm-* tools
+  export AR=llvm-ar
   export CC=${clang_target_host}-clang
   export CXX=${clang_target_host}-clang++
-  export AS=${build_host}-as
-  export LD=${build_host}-ld
-  export RANLIB=${build_host}-ranlib
-  export STRIP=${build_host}-strip
+  export AS=llvm-as
+  export LD=ld.lld
+  export RANLIB=llvm-ranlib
+  export STRIP=llvm-strip
+  export NM=llvm-nm
+  export OBJDUMP=llvm-objdump
 }
 
 function get_common_includes() {
@@ -172,25 +175,25 @@ function set_android_cpu_feature() {
   local api=$3
   case ${arch} in
   arm-v7a | arm-v7a-neon)
-    export CFLAGS="-Wno-unused-function -fno-integrated-as -fstrict-aliasing -fPIC -DANDROID -D__ANDROID_API__=${api} -Os -ffunction-sections -fdata-sections $(get_common_includes)"
+    export CFLAGS="-Wno-unused-function -fstrict-aliasing -fPIC -DANDROID -D__ANDROID_API__=${api} -Os -ffunction-sections -fdata-sections $(get_common_includes)"
     export CXXFLAGS="-std=c++14 -Os -ffunction-sections -fdata-sections"
     export LDFLAGS="-Wl,--fix-cortex-a8 -Wl,--gc-sections -Os -ffunction-sections -fdata-sections $(get_common_linked_libraries ${api} ${arch})"
     export CPPFLAGS=${CFLAGS}
     ;;
   arm64-v8a)
-    export CFLAGS="-Wno-unused-function -fno-integrated-as -fstrict-aliasing -fPIC -DANDROID -D__ANDROID_API__=${api} -Os -ffunction-sections -fdata-sections $(get_common_includes)"
+    export CFLAGS="-Wno-unused-function -fstrict-aliasing -fPIC -DANDROID -D__ANDROID_API__=${api} -Os -ffunction-sections -fdata-sections $(get_common_includes)"
     export CXXFLAGS="-std=c++14 -Os -ffunction-sections -fdata-sections"
     export LDFLAGS="-Wl,--gc-sections -Os -ffunction-sections -fdata-sections $(get_common_linked_libraries ${api} ${arch})"
     export CPPFLAGS=${CFLAGS}
     ;;
   x86)
-    export CFLAGS="-Wno-unused-function -fno-integrated-as -fstrict-aliasing -fPIC -DANDROID -D__ANDROID_API__=${api} -Os -ffunction-sections -fdata-sections $(get_common_includes)"
+    export CFLAGS="-Wno-unused-function -fstrict-aliasing -fPIC -DANDROID -D__ANDROID_API__=${api} -Os -ffunction-sections -fdata-sections $(get_common_includes)"
     export CXXFLAGS="-std=c++14 -Os -ffunction-sections -fdata-sections"
     export LDFLAGS="-Wl,--gc-sections -Os -ffunction-sections -fdata-sections $(get_common_linked_libraries ${api} ${arch})"
     export CPPFLAGS=${CFLAGS}
     ;;
   x86-64)
-    export CFLAGS="-Wno-unused-function -fno-integrated-as -fstrict-aliasing -fPIC -DANDROID -D__ANDROID_API__=${api} -Os -ffunction-sections -fdata-sections $(get_common_includes)"
+    export CFLAGS="-Wno-unused-function -fstrict-aliasing -fPIC -DANDROID -D__ANDROID_API__=${api} -Os -ffunction-sections -fdata-sections $(get_common_includes)"
     export CXXFLAGS="-std=c++14 -Os -ffunction-sections -fdata-sections"
     export LDFLAGS="-Wl,--gc-sections -Os -ffunction-sections -fdata-sections $(get_common_linked_libraries ${api} ${arch})"
     export CPPFLAGS=${CFLAGS}

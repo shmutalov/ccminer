@@ -23,6 +23,7 @@ RUN apt-get update && apt-get install -y \
     file \
     autoconf-archive \
     build-essential \
+    libjansson-dev \
     && rm -rf /var/lib/apt/lists/*
 
 # Android NDK is pre-installed in the base image
@@ -40,7 +41,5 @@ COPY . .
 
 WORKDIR ./scripts
 
-RUN ./build-android-ccminer.sh
-
 # Set entrypoint to build script
-ENTRYPOINT ["ls", "-an", "/build/output"]
+ENTRYPOINT ["./build-android-ccminer.sh"]

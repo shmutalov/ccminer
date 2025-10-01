@@ -116,13 +116,7 @@ echo ========================================
 echo.
 echo Output directory structure:
 echo %OUTPUT_DIR%
-dir /s /b "%OUTPUT_DIR%\ccminer*" 2>nul
-echo.
-echo Android binaries ready for deployment:
-echo   * ARM64 (64-bit):  %OUTPUT_DIR%\android-arm64\ccminer
-echo   * ARMv7 (32-bit):  %OUTPUT_DIR%\android-armv7\ccminer
-echo   * x86_64:          %OUTPUT_DIR%\android-x86_64\ccminer
-echo.
+tree "%OUTPUT_DIR%" 2>nul
 
 exit /b 0
 

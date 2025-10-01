@@ -69,28 +69,63 @@ function configure_make() {
 
     rm -f Makefile.in
     rm -f config.status
-    ./autogen.sh || echo done
+
+    # Use autoreconf to regenerate all autotools files with consistent versions
+    autoreconf -fi || ./autogen.sh
 
     extracflags="-D_REENTRANT -falign-functions=16 -falign-jumps=16 -falign-labels=16"
 
+    # Android doesn't need -pthread flag, pthreads are in libc (Bionic)
+    export ac_cv_search_pthread_create="none required"
+    export PTHREAD_FLAGS=""
+    export PTHREAD_LIBS=""
+
+    # Remove -pthread from LDFLAGS if present
+    export LDFLAGS="${LDFLAGS/-pthread/}"
+
     if [[ "${ARCH}" == "x86_64" ]]; then
 
-        ./configure --host=$(android_get_build_host "${ARCH}") CXXFLAGS="-O3 $extracflags" BUILD_STATIC=true --prefix="${PREFIX_DIR}" >"${OUTPUT_ROOT}/log/${ABI}.log" 2>&1
+        ./configure --host=$(android_get_build_host "${ARCH}") \
+            CFLAGS="${CFLAGS} -O3 $extracflags" \
+            CXXFLAGS="${CXXFLAGS} -O3 $extracflags" \
+            LDFLAGS="${LDFLAGS}" \
+            SHARED_LDFLAGS="" \
+            BUILD_STATIC=true --prefix="${PREFIX_DIR}" >"${OUTPUT_ROOT}/log/${ABI}.log" 2>&1
 
     elif [[ "${ARCH}" == "x86" ]]; then
 
-        ./configure --host=$(android_get_build_host "${ARCH}") CXXFLAGS="-O3 $extracflags" BUILD_STATIC=true --prefix="${PREFIX_DIR}" >"${OUTPUT_ROOT}/log/${ABI}.log" 2>&1
+        ./configure --host=$(android_get_build_host "${ARCH}") \
+            CFLAGS="${CFLAGS} -O3 $extracflags" \
+            CXXFLAGS="${CXXFLAGS} -O3 $extracflags" \
+            LDFLAGS="${LDFLAGS}" \
+            SHARED_LDFLAGS="" \
+            BUILD_STATIC=true --prefix="${PREFIX_DIR}" >"${OUTPUT_ROOT}/log/${ABI}.log" 2>&1
 
     elif [[ "${ARCH}" == "arm" ]]; then
 
-        ./configure --host=$(android_get_build_host "${ARCH}") CXXFLAGS="-O3 $extracflags" BUILD_STATIC=true --prefix="${PREFIX_DIR}" >"${OUTPUT_ROOT}/log/${ABI}.log" 2>&1
+        ./configure --host=$(android_get_build_host "${ARCH}") \
+            CFLAGS="${CFLAGS} -O3 $extracflags" \
+            CXXFLAGS="${CXXFLAGS} -O3 $extracflags" \
+            LDFLAGS="${LDFLAGS}" \
+            SHARED_LDFLAGS="" \
+            BUILD_STATIC=true --prefix="${PREFIX_DIR}" >"${OUTPUT_ROOT}/log/${ABI}.log" 2>&1
 
     elif [[ "${ARCH}" == "arm64" ]]; then
 
-        ./configure --host=$(android_get_build_host "${ARCH}") CXXFLAGS="-O3 $extracflags" BUILD_STATIC=true --prefix="${PREFIX_DIR}" >"${OUTPUT_ROOT}/log/${ABI}.log" 2>&1
+        ./configure --host=$(android_get_build_host "${ARCH}") \
+            CFLAGS="${CFLAGS} -O3 $extracflags" \
+            CXXFLAGS="${CXXFLAGS} -O3 $extracflags" \
+            LDFLAGS="${LDFLAGS}" \
+            SHARED_LDFLAGS="" \
+            BUILD_STATIC=true --prefix="${PREFIX_DIR}" >"${OUTPUT_ROOT}/log/${ABI}.log" 2>&1
 
     else
         log_error "not support" && exit 1
+    fi
+
+    # Copy config.log for debugging
+    if [ -f "config.log" ]; then
+        cp config.log "${OUTPUT_ROOT}/log/${ABI}-config.log"
     fi
 
     log_info "make $ABI start..."

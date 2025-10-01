@@ -50,7 +50,9 @@ SHARED_SOURCES += compat/winansi.c
 endif
 
 if BUILD_STATIC
-SHARED_LDFLAGS  = -static-libstdc++ -static-openmp 
+SHARED_LDFLAGS  =
+# Android: Use dynamic linking for C++ stdlib (static has pthread dependencies)
+# Desktop: Use -static-libstdc++ -static-openmp 
 SHARED_LDADD    = -lz libs/$(libs_ARCH)/curl/lib/libcurl.a libs/$(libs_ARCH)/openssl/lib/libcrypto.a libs/$(libs_ARCH)/openssl/lib/libssl.a libs/$(libs_ARCH)/openssl/lib/libcrypto.a libs/$(libs_ARCH)/nghttp2/lib/libnghttp2.a libs/$(libs_ARCH)/lz4/lib/liblz4.a 
 SHARED_CPPFLAGS = -I$(top_srcdir)/libs/$(libs_ARCH)/curl/include -I$(top_srcdir)/libs/$(libs_ARCH)/openssl/include -I$(top_srcdir)/libs/$(libs_ARCH)/nghttp2/include -I$(top_srcdir)/libs/$(libs_ARCH)/lz4/include 
 else
