@@ -15,7 +15,12 @@ EXTRA_DIST		= autogen.sh README.md README.txt LICENSE.txt \
 
 SUBDIRS = compat
 
+# Disable shared library for ARM64 due to OpenSSL PIC issues
+if ARCH_ARM_64
+lib_LTLIBRARIES =
+else
 lib_LTLIBRARIES = libccminer.la
+endif
 bin_PROGRAMS = ccminer
 
 SHARED_SOURCES = elist.h miner.h compat.h \
@@ -87,10 +92,13 @@ if HAVE_ANDROID
 SHARED_LDADD += -llog
 endif
 
+# Only build shared library if not ARM64
+if !ARCH_ARM_64
 libccminer_la_SOURCES = $(SHARED_SOURCES) libccminer.h libccminer.cpp
 libccminer_la_LDFLAGS = $(SHARED_LDFLAGS)
 libccminer_la_LIBADD = $(SHARED_LDADD)
 libccminer_la_CPPFLAGS = $(SHARED_CPPFLAGS)
+endif
 
 ccminer_SOURCES	= $(SHARED_SOURCES) ccminer.cpp
 ccminer_LDFLAGS = $(SHARED_LDFLAGS)
