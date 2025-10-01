@@ -17,6 +17,11 @@
 export PLATFORM_TYPE=""
 export PKG_CONFIG_PATH=$(which pkg-config)
 
+bold_color=
+warn_color=
+error_color=
+reset_color=
+
 if [[ -z "${PKG_CONFIG_PATH}" ]]; then
   echo "PKG_CONFIG_PATH not defined"
   exit 1
