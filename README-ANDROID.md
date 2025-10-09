@@ -1,11 +1,12 @@
 **How to compile on Android**
 
-There are two methods (or more?), to compile `ccminer` on Android:
+There are three methods to compile `ccminer` on Android:
 
 1. By installing a Linux distribution with help of `Termux` + `proot-distro`: https://medium.com/veruscoin/mining-veruscoin-on-smartphone-208dbb06905f
-2. By compiling without the any Linux distribution, purely on the system. 
+2. By compiling without any Linux distribution, purely on the system (native Termux build).
+3. By using Docker to build Android binaries on any host system (Linux, Windows, macOS).
 
-This document explains the second way.
+This document explains the second and third methods.
 
 *NOTE: Tested on:*
 + rooted Letv Le 1s, Android 6, Mediatek MT6795T
@@ -89,6 +90,76 @@ Then start the build:
 `./build.sh`
 
 After successful build you can run built `ccminer` binary file to start the mining
+
+# Method 3: Docker Build (Cross-platform)
+
+This method allows you to build Android binaries for all architectures (ARM64, ARMv7, x86_64) on any system with Docker installed. **No need to configure the build environment** - Docker handles all dependencies automatically.
+
+## Prerequisites
+
+- Docker installed and running on your system
+  - Windows: [Docker Desktop](https://www.docker.com/products/docker-desktop)
+  - Linux: Docker CE/EE
+  - macOS: [Docker Desktop](https://www.docker.com/products/docker-desktop)
+
+## Build Steps
+
+### On Windows
+
+Run the batch script:
+
+```cmd
+build-android-binaries-with-docker.bat
+```
+
+Options:
+```cmd
+build-android-binaries-with-docker.bat -h              # Show help
+build-android-binaries-with-docker.bat -o .\dist      # Custom output directory
+build-android-binaries-with-docker.bat -c             # Clean before build
+build-android-binaries-with-docker.bat -n             # No Docker cache
+```
+
+### On Linux/macOS
+
+Make the script executable and run it:
+
+```bash
+chmod +x build-android-binaries-with-docker.sh
+./build-android-binaries-with-docker.sh
+```
+
+Options:
+```bash
+./build-android-binaries-with-docker.sh -h              # Show help
+./build-android-binaries-with-docker.sh -o ./dist      # Custom output directory
+./build-android-binaries-with-docker.sh -c             # Clean before build
+./build-android-binaries-with-docker.sh -n             # No Docker cache
+```
+
+## Output
+
+Built binaries are automatically copied to the `build-output` directory with the following structure:
+
+```
+build-output/
+├── arm64-v8a/
+│   └── ccminer
+├── armeabi-v7a/
+│   └── ccminer
+└── x86_64/
+    └── ccminer
+```
+
+Each subdirectory contains the `ccminer` binary optimized for the respective architecture.
+
+## Advantages
+
+- **No configuration required**: All dependencies are handled by Docker
+- **Consistent builds**: Same Docker image produces identical results on any platform
+- **Multi-architecture**: Builds for all Android architectures in one run
+- **Clean environment**: Isolated build environment doesn't affect your system
+- **Cross-platform**: Works on Windows, Linux, and macOS
 
 # Buy me a beer
 
