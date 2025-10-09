@@ -39,3 +39,8 @@ Compile on Android
 ------------------
 
 Please see [README-ANDROID](./README-ANDROID.md) file
+
+Build with Docker
+-----------------
+
+Please see [README-DOCKER](./README-DOCKER.md) file for building and running ccminer in Docker containers
