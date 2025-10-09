@@ -27,7 +27,7 @@ SHARED_SOURCES = elist.h miner.h compat.h \
 			  compat/inttypes.h compat/stdbool.h compat/unistd.h bignum.cpp bignum.hpp \
 			  compat/sys/time.h compat/getopt/getopt.h \
 			  crc32.c \
-			  pools.cpp util.cpp bench.cpp \
+			  pools.cpp util.cpp \
 			  api.cpp hashlog.cpp stats.cpp sysinfos.cpp \
 			  equi/equi-stratum.cpp
 
@@ -71,7 +71,7 @@ SHARED_CPPFLAGS += @OPENMP_CFLAGS@ $(CPPFLAGS) $(PTHREAD_FLAGS) -flax-vector-con
 
 if ARCH_ARM
 if ARCH_ARM_64
-SHARED_CPPFLAGS += -march=armv8-a+crypto -mfloat-abi=hard
+SHARED_CPPFLAGS += -march=armv8-a+crypto
 else
 SHARED_CPPFLAGS += -march=armv7-a -mfpu=neon -mfloat-abi=softfp
 endif

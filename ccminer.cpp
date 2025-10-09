@@ -84,7 +84,6 @@ bool opt_debug = false;
 bool opt_debug_diff = false;
 bool opt_debug_threads = false;
 bool opt_protocol = false;
-bool opt_benchmark = false;
 bool opt_showdiff = true;
 bool opt_hwmonitor = false;
 
@@ -308,7 +307,6 @@ Options:\n\
 "\
       --hide-diff       hide submitted block and net difficulty (old mode)\n\
   -B, --background      run the miner in the background\n\
-      --benchmark       run in offline benchmark mode\n\
       --cputest         debug hashes from cpu algorithms\n\
   -c, --config=FILE     load a JSON-format configuration file\n\
   -V, --version         display version information and exit\n\
@@ -333,7 +331,6 @@ struct option options[] = {
 	{ "api-mcast-port", 1, NULL, 1036 },
 	{ "api-mcast-des", 1, NULL, 1037 },
 	{ "background", 0, NULL, 'B' },
-	{ "benchmark", 0, NULL, 1005 },
 	{ "cert", 1, NULL, 1001 },
 	{ "config", 1, NULL, 'c' },
 	{ "cputest", 0, NULL, 1006 },
@@ -1145,8 +1142,7 @@ static bool workio_submit_work(struct workio_cmd *wc, CURL *curl)
 			return false;
 		}
 		/* pause, then restart work-request loop */
-		if (!opt_benchmark)
-			applog(LOG_ERR, "...retry after %d seconds", opt_fail_pause);
+		applog(LOG_ERR, "...retry after %d seconds", opt_fail_pause);
 
 		sleep(opt_fail_pause);
 	}
@@ -1213,18 +1209,6 @@ bool get_work(struct thr_info *thr, struct work *work)
 {
 	struct workio_cmd *wc;
 	struct work *work_heap;
-
-	if (opt_benchmark) {
-		memset(work->data, 0x55, 76);
-		//work->data[17] = swab32((uint32_t)time(NULL));
-		memset(work->data + 19, 0x00, 52);
-		
-    work->data[20] = 0x80000000;
-    work->data[31] = 0x00000280;
-		
-		memset(work->target, 0x00, sizeof(work->target));
-		return true;
-	}
 
 	/* fill out work request message */
 	wc = (struct workio_cmd *)calloc(1, sizeof(*wc));
@@ -1551,7 +1535,7 @@ static void *miner_thread(void *userdata)
 		if (strcmp(work.job_id, g_work.job_id))
 			stratum.job.shares_count = 0;
 
-		if (!opt_benchmark && (g_work.height != work.height || memcmp(work.target, g_work.target, sizeof(work.target))))
+		if (g_work.height != work.height || memcmp(work.target, g_work.target, sizeof(work.target)))
 		{
 			if (opt_debug) {
 				uint64_t target64 = g_work.target[7] * 0x100000000ULL + g_work.target[6];
@@ -1579,37 +1563,20 @@ static void *miner_thread(void *userdata)
 			nonceptr[0] = (UINT32_MAX / opt_n_threads) * thr_id; // 0 if single thr
 		} else {
 			nonceptr[0]++; //??
-    }
+    	}
 
-		if (opt_benchmark) {
-			// randomize work
-			nonceptr[-1] += 1;
-		} else {
-      nonceptr[1]++;
-			nonceptr[2] |= thr_id;  //try  was nonceptr[1] |= thr_id << 24
-			//applog_hex(&work.data[27], 32);
-    }
-
+		
+      	nonceptr[1]++;
+		nonceptr[2] |= thr_id;  //try  was nonceptr[1] |= thr_id << 24
+		//applog_hex(&work.data[27], 32);
+    
 		pthread_mutex_unlock(&g_work_lock);
 
-		// --benchmark [-a all]
-		if (opt_benchmark && bench_algo >= 0) {
-			//gpulog(LOG_DEBUG, thr_id, "loop %d", loopcnt);
-			if (loopcnt >= 3) {
-				if (!bench_algo_switch_next(thr_id) && thr_id == 0)
-				{
-					bench_display_results();
-					proper_exit(0);
-					break;
-				}
-				loopcnt = 0;
-			}
-		}
 		loopcnt++;
 
 		// prevent gpu scans before a job is received
 		nodata_check_oft = 0;
-		if (have_stratum && work.data[nodata_check_oft] == 0 && !opt_benchmark) {
+		if (have_stratum && work.data[nodata_check_oft] == 0) {
 			sleep(1);
 			if (!thr_id) pools[cur_pooln].wait_time += 1;
 			gpulog(LOG_DEBUG, thr_id, "no data");
@@ -1621,11 +1588,6 @@ static void *miner_thread(void *userdata)
 		if (!wanna_mine(thr_id))
 		{
 			// reset default mem offset before idle..
-
-			// free gpu resources
-			algo_free_all(thr_id);
-			// clear any free error (algo switch)
-			//cuda_clear_lasterror();
 
 			// conditional pool switch
 			if (num_pools > 1 && conditional_pool_rotate) {
@@ -1685,15 +1647,9 @@ static void *miner_thread(void *userdata)
 				}
 				app_exit_code = EXIT_CODE_TIME_LIMIT;
 				abort_flag = true;
-				if (opt_benchmark) {
-					char rate[32];
-					format_hashrate((double)global_hashrate, rate);
-					applog(LOG_NOTICE, "Benchmark: %s", rate);
-					usleep(200*1000);
-					fprintf(stderr, "%llu\n", (long long unsigned int) global_hashrate);
-				} else {
-					applog(LOG_NOTICE, "Mining timeout of %ds reached, exiting...", opt_time_limit);
-				}
+				
+				applog(LOG_NOTICE, "Mining timeout of %ds reached, exiting...", opt_time_limit);
+				
 				workio_abort();
 				break;
 			}
@@ -1826,10 +1782,7 @@ static void *miner_thread(void *userdata)
 			work.scanned_to = max(work.nonces[0], work.nonces[1]);
 		else {
 			work.scanned_to = max_nonce;
-			if (opt_debug && opt_benchmark) {
-				// to debug nonce ranges
-				gpulog(LOG_DEBUG, thr_id, "ends=%08x range=%08x", nonceptr[0], (nonceptr[0] - start_nonce));
-			}
+			
 			// prevent low scan ranges on next loop on fast algos (blake)
 			if (nonceptr[0] > UINT32_MAX - 64)
 				nonceptr[0] = UINT32_MAX;
@@ -1850,11 +1803,7 @@ static void *miner_thread(void *userdata)
 			for (int i = 0; i < opt_n_threads && thr_hashrates[i]; i++)
 				hashrate += stats_get_speed(i, thr_hashrates[i]);
 			pthread_mutex_unlock(&stats_lock);
-			if (opt_benchmark && bench_algo == -1 && loopcnt > 2) {
-				format_hashrate(hashrate, s);
-				applog(LOG_NOTICE, "Total: %s", s);
-			}
-
+			
 			// since pool start
 			pools[cur_pooln].work_time = (uint32_t) (time(NULL) - firstwork_time);
 
@@ -1868,10 +1817,8 @@ static void *miner_thread(void *userdata)
 		if (cgpu) cgpu->accepted += work.valid_nonces;
 
 		/* if nonce found, submit work */
-		if (rc > 0 && !opt_benchmark) {
+		if (rc > 0) {
 			uint32_t curnonce = nonceptr[0]; // current scan position
-
-			
 
 			work.submit_nonce_id = 0;
 			nonceptr[0] = work.nonces[0];
@@ -2159,8 +2106,8 @@ wait_stratum_url:
 				}
 				if (switchn != pool_switch_count)
 					goto pool_switched;
-				if (!opt_benchmark)
-					applog(LOG_ERR, "...retry after %d seconds", opt_fail_pause);
+				
+				applog(LOG_ERR, "...retry after %d seconds", opt_fail_pause);
 				sleep(opt_fail_pause);
 			}
 		}
@@ -2505,7 +2452,7 @@ void parse_arg(int key, char *arg)
 			// host:port only
 			short_url = ap;
 		}
-		have_stratum = !opt_benchmark && !strncasecmp(rpc_url, "stratum", 7);
+		have_stratum = !strncasecmp(rpc_url, "stratum", 7);
 		pool_set_creds(cur_pooln);
 		break;
 	case 'O':			/* --userpass */
@@ -2690,12 +2637,6 @@ void parse_arg(int key, char *arg)
 				device_led[n++] = lastval;
 			}
 		}
-		break;
-	case 1005:
-		opt_benchmark = true;
-		want_longpoll = false;
-		want_stratum = false;
-		have_stratum = false;
 		break;
 	case 1006:
 	
@@ -3114,7 +3055,7 @@ int main(int argc, char *argv[])
 	/* parse command line */
 	parse_cmdline(argc, argv);
 
-	if (!opt_benchmark && !strlen(rpc_url)) {
+	if (!strlen(rpc_url)) {
 		// try default config file (user then binary folder)
 		char defconfig[MAX_PATH] = { 0 };
 		get_defconfig_path(defconfig, MAX_PATH, argv[0]);
@@ -3127,10 +3068,8 @@ int main(int argc, char *argv[])
 	}
 
 	if (!strlen(rpc_url)) {
-		if (!opt_benchmark) {
-			fprintf(stderr, "%s: no URL supplied\n", argv[0]);
-			show_usage_and_exit(1);
-		}
+		fprintf(stderr, "%s: no URL supplied\n", argv[0]);
+		show_usage_and_exit(1);
 		// ensure a pool is set with default params...
 		pool_set_creds(0);
 	}
@@ -3148,7 +3087,7 @@ int main(int argc, char *argv[])
 
 	opt_extranonce = false; // disable subscribe
 
-	flags = !opt_benchmark && strncmp(rpc_url, "https:", 6)
+	flags = strncmp(rpc_url, "https:", 6)
 	      ? (CURL_GLOBAL_ALL & ~CURL_GLOBAL_SSL)
 	      : CURL_GLOBAL_ALL;
 	if (curl_global_init(flags)) {
@@ -3228,14 +3167,6 @@ int main(int argc, char *argv[])
 
 	// generally doesn't work well...
 	gpu_threads = max(gpu_threads, opt_n_threads / active_gpus);
-
-	if (opt_benchmark && opt_algo == ALGO_AUTO) {
-		bench_init(opt_n_threads);
-		for (int n=0; n < MAX_GPUS; n++) {
-			gpus_intensity[n] = 0; // use default
-		}
-		opt_autotune = false;
-	}
 
 #ifdef HAVE_SYSLOG_H
 	if (use_syslog)

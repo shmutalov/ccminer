@@ -407,7 +407,6 @@ struct option {
 extern int options_count();
 
 extern bool opt_print_banner;
-extern bool opt_benchmark;
 extern bool opt_debug;
 extern bool opt_quiet;
 extern bool opt_protocol;
@@ -528,14 +527,6 @@ double bn_hash_target_ratio(uint32_t* hash, uint32_t* target);
 void bn_store_hash_target_ratio(uint32_t* hash, uint32_t* target, struct work* work, int nonce);
 void bn_set_target_ratio(struct work* work, uint32_t* hash, int nonce);
 void work_set_target_ratio(struct work* work, uint32_t* hash);
-
-// bench
-extern int bench_algo;
-void bench_init(int threads);
-void bench_free();
-bool bench_algo_switch_next(int thr_id);
-void bench_set_throughput(int thr_id, uint32_t throughput);
-void bench_display_results();
 
 struct stratum_job {
 	char *job_id;

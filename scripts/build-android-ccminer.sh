@@ -165,13 +165,21 @@ function configure_make() {
                 ;;
         esac
 
-        LIBOMP_SO_SOURCE="${ANDROID_NDK_ROOT}/toolchains/llvm/prebuilt/${TOOLCHAIN}/lib/clang/17/lib/linux/${LIBOMP_ARCH}/libomp.so"
-        LIBOMP_SO_DEST="${PREFIX_DIR}/bin/libomp.so"
-        if [ -f "${LIBOMP_SO_SOURCE}" ]; then
-            cp "${LIBOMP_SO_SOURCE}" "${LIBOMP_SO_DEST}"
-            log_info "Copied libomp.so to ${LIBOMP_SO_DEST}"
+        # Auto-detect Clang version (NDK 28 uses newer versions)
+        CLANG_LIB_DIR="${ANDROID_NDK_ROOT}/toolchains/llvm/prebuilt/${TOOLCHAIN}/lib/clang"
+        CLANG_VERSION=$(ls -1 "${CLANG_LIB_DIR}" 2>/dev/null | sort -V | tail -1)
+
+        if [ -n "${CLANG_VERSION}" ]; then
+            LIBOMP_SO_SOURCE="${CLANG_LIB_DIR}/${CLANG_VERSION}/lib/linux/${LIBOMP_ARCH}/libomp.so"
+            LIBOMP_SO_DEST="${PREFIX_DIR}/bin/libomp.so"
+            if [ -f "${LIBOMP_SO_SOURCE}" ]; then
+                cp "${LIBOMP_SO_SOURCE}" "${LIBOMP_SO_DEST}"
+                log_info "Copied libomp.so (Clang ${CLANG_VERSION}) to ${LIBOMP_SO_DEST}"
+            else
+                log_warning "libomp.so not found at ${LIBOMP_SO_SOURCE}"
+            fi
         else
-            log_warning "libomp.so not found at ${LIBOMP_SO_SOURCE}"
+            log_warning "Could not detect Clang version in ${CLANG_LIB_DIR}"
         fi
     fi
 

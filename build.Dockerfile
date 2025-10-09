@@ -3,8 +3,8 @@
 # Output: Binaries placed in /output directory (mount this as volume)
 
 # Use pre-built Android NDK image
-# Image includes: JDK 17.0.14, NDK 26.3.11579264, CMake 3.31.1
-FROM saschpe/android-ndk:35-jdk17.0.14_7-ndk26.3.11579264-cmake3.31.1
+# Image includes: JDK 17.0.14, NDK 28.0.13004108, CMake 3.31.5
+FROM saschpe/android-ndk:35-jdk17.0.14_7-ndk28.0.13004108-cmake3.31.5
 
 # Switch to root to install packages
 USER root

@@ -158,9 +158,6 @@ extern "C" int scanhash_equihash(int thr_id, struct work *work, uint32_t max_non
 	double secs, solps;
 	uint32_t soluce_count = 0;
 
-	if (opt_benchmark)
-		ptarget[7] = 0xfffff;
-
 	if (!init[thr_id]) {
 		try {
 			int mode = 1;
